@@ -1,0 +1,64 @@
+.guest-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.form-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+}
+
+.section-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    gap: 0.5rem; /* Add gap between rows and columns */
+}
+
+.section-heading {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    grid-column: span 2; /* Make the heading span both columns */
+}
+
+.large-input {
+    width: 90%; /* Slightly reduced width to fit comfortably in two columns */
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.save-button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    background-color: navy; /* Corrected color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .section-container {
+        grid-template-columns: 1fr; /* Switch to a single column layout */
+    }
+
+    .large-input {
+        width: 100%; /* Make inputs full width on small screens */
+    }
+
+    .section-heading {
+        font-size: 1.3rem;
+    }
+
+    .save-button {
+        width: 100%; /* Full width button on small screens */
+        padding: 0.75rem;
+    }
+}

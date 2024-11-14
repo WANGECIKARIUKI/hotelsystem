@@ -1,0 +1,82 @@
+.manage-staff {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.manage-staff h1 {
+    margin-bottom: 20px;
+}
+
+.manage-staff table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.manage-staff th, .manage-staff td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.manage-staff th {
+    background-color: #f2f2f2;
+}
+
+.manage-staff button {
+    margin: 5px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal form {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.search-container {
+    margin: 10px 0;
+}
+
+.pagination {
+    margin: 10px 0;
+}
+
+.show-entries {
+    margin: 10px 0;
+}
+
+.action-icon {
+    cursor: pointer;
+    font-size: 1.5em; /* Increase icon size */
+    margin-right: 10px; /* Space between icons */
+}
+
+.manage-staff table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.manage-staff th, .manage-staff td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+
+
+@media (max-width: 768px) {
+    .manage-staff table {
+        font-size: 12px;
+    }
+}

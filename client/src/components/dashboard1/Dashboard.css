@@ -1,0 +1,52 @@
+/* Dashboard container */
+.dashboard1 {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr); /* Set three columns */
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    max-width: 1400px; /* Optional: set max width to center the layout */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Card styling */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem; /* Increase padding */
+    background: #333;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.6rem; /* Slightly larger font size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+/*.card:hover {
+    transform: scale(1.05); /* Slight scale effect on hover */
+
+.card h2 {
+    font-size: 2.8rem; /* Increased title font size */
+    margin: 1.2rem 0;
+}
+
+.card p {
+    font-size: 1.3rem; /* Increased paragraph font size */
+}
+
+.card-icon {
+    font-size: 3.2rem; /* Slightly larger icon size */
+    margin-bottom: 1rem;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+    .dashboard1 {
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+    }
+    .card {
+        font-size: 1.1rem;
+    }
+}

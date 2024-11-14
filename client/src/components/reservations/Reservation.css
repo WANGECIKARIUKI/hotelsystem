@@ -1,0 +1,153 @@
+.reservation-form {
+    max-width: 800px;           /* Increase max width for the form */
+    margin: auto;               /* Center the form on the page */
+    padding: 30px;              /* Increase padding inside the form */
+    /*border: 1px solid;     /* Border around the form */
+    border-radius: 8px;         /* Slightly larger rounded corners for the form */
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.932); /* Change shadow to white */
+    background-color: #f9f9f9;  /* Light background for contrast */
+}
+
+h2 {
+    margin-bottom: 20px;        /* Increased space below the headings */
+}
+
+.section {
+    margin-bottom: 25px;        /* Space between sections */
+    padding: 20px;              /* Increased padding inside each section */
+    border: 1px solid #fff;     /* Border around sections */
+    border-radius: 5px;         /* Rounded corners for sections */
+    background-color: #fff;     /* White background for sections */
+}
+
+.form-row {
+    display: flex;              /* Use flexbox for row layout */
+    justify-content: space-between; /* Space inputs evenly */
+    margin-bottom: 20px;       /* Increased space between rows */
+}
+
+.form-row input {
+    flex: 1;                    /* Each input takes full available width */
+    padding: 15px;              /* Increased padding inside the inputs */
+    border: 1px solid #ccc;     /* Border around inputs */
+    border-radius: 5px;         /* Rounded corners for inputs */
+    box-sizing: border-box;      /* Ensure padding is included in width */
+    margin-right: 20px;         /* Add space between inputs */
+}
+
+.form-row input:last-child {
+    margin-right: 0;            /* Remove margin from the last input */
+}
+
+button {
+    margin-top: 50px;           /* Space above the button */
+    padding: 15px 20px;         /* Increased padding inside the button */
+    background-color: rgb(61, 61, 139);  /* blue background color */
+    color: white;                /* White text color */
+    border: none;                /* No border */
+    border-radius: 4px;         /* Rounded corners for the button */
+    cursor: pointer;             /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+button:hover {
+    background-color: #d0dbd1;  /* Darker green on hover */
+}
+
+.popup {
+    position: fixed;             /* Fixed position for the popup */
+    top: 50%;                    /* Center vertically */
+    left: 50%;                   /* Center horizontally */
+    transform: translate(-50%, -50%); /* Move to center */
+    background: white;           /* White background for popup */
+    padding: 30px;               /* Increased padding inside the popup */
+    border: 1px solid #ccc;      /* Border around popup */
+    border-radius: 8px;          /* Slightly larger rounded corners for popup */
+    box-shadow: 0 4px 20px #fffffff5; /* Change shadow to white */
+    z-index: 1000;               /* Ensure it's above other elements */
+}
+
+.popup h3 {
+    margin: 0;                   /* Remove default margin */
+    margin-bottom: 10px;        /* Space below the heading */
+}
+
+.popup button {
+    margin-top: 10px;           /* Space above close button */
+    padding: 10px 15px;         /* Increased padding inside close button */
+    background-color: #f44336;   /* Red background color */
+    color: white;                /* White text color */
+    border: none;                /* No border */
+    border-radius: 4px;         /* Rounded corners for button */
+    cursor: pointer;             /* Pointer cursor on hover */
+}
+
+.popup button:hover {
+    background-color: #d32f2f;  /* Darker red on hover */
+}
+
+
+
+/* Search Input */
+.search-input {
+    flex: 1; /* Take the remaining space */
+    padding: 10px 15px; /* Add padding */
+    border: none; /* Remove default border */
+    outline: none; /* Remove default outline */
+    font-size: 1rem; /* Font size */
+}
+
+
+/* loading spinner */
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db; /* Change this color as needed */
+    border-radius: 50%;
+    width: 30px; /* Size of the spinner */
+    height: 30px; /* Size of the spinner */
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .reservation-form {
+        padding: 20px;           /* Reduce padding for smaller screens */
+    }
+
+    .form-row {
+        flex-direction: column;   /* Stack inputs vertically on small screens */
+    }
+
+    .form-row input {
+        margin-bottom: 10px;      /* Space between inputs */
+        margin-right: 0;          /* Remove right margin on small screens */
+    }
+
+    button {
+        width: 100%;              /* Full width for the button */
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5em;         /* Adjust heading size for smaller screens */
+    }
+
+    .popup {
+        width: 90%;               /* Reduce popup width for smaller screens */
+        padding: 20px;            /* Reduce padding inside the popup */
+    }
+}

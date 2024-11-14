@@ -1,0 +1,38 @@
+/* AverageRates.css */
+.average {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.average h3 {
+    color: #333;
+}
+
+.average p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .average {
+        padding: 15px;
+    }
+
+    .average p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .average {
+        padding: 10px;
+    }
+
+    .average p {
+        font-size: 0.9rem;
+    }
+}

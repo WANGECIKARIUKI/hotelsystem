@@ -1,0 +1,52 @@
+/* StaffDetail.css */
+
+.staff-detail {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.staff-detail h1, .staff-detail h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.staff-info p {
+    font-size: 16px;
+    color: #555;
+    margin: 8px 0;
+}
+
+.back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    .staff-detail {
+        padding: 15px;
+    }
+
+    .staff-info p {
+        font-size: 14px;
+    }
+
+    .back-button {
+        font-size: 14px;
+    }
+}

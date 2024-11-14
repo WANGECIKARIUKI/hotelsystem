@@ -1,0 +1,159 @@
+/* Background overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+    background-color: #fff;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+    position: relative;
+}
+
+/* Header styling */
+.modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form styling */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Label styling */
+.modal-content label {
+    font-weight: 500;
+    color: #555;
+    text-align: left;
+}
+
+/* Input styling */
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="number"],
+.modal-content input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.modal-content input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button styling */
+.modal-content button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Primary button */
+.modal-content button[type="button"]:first-of-type {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-content button[type="button"]:first-of-type:hover {
+    background-color: #0056b3;
+}
+
+/* Close button */
+.modal-content button[type="button"]:last-of-type {
+    background-color: #ccc;
+    color: #333;
+    margin-top: 5px;
+}
+
+.modal-content button[type="button"]:last-of-type:hover {
+    background-color: #aaa;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .modal-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .modal-content input[type="text"],
+    .modal-content input[type="email"],
+    .modal-content input[type="number"],
+    .modal-content input[type="date"] {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .modal-content button {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Further adjustments for very small screens (up to 400px) */
+@media (max-width: 400px) {
+    .modal-content {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .modal-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .modal-content input[type="text"],
+    .modal-content input[type="email"],
+    .modal-content input[type="number"],
+    .modal-content input[type="date"] {
+        padding: 7px;
+        font-size: 0.85rem;
+    }
+
+    .modal-content button {
+        padding: 7px;
+        font-size: 0.85rem;
+    }
+}

@@ -1,0 +1,102 @@
+.staff-form {
+    max-width: 800px; /* Limit the form width */
+    margin: 20px auto; /* Center the form */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px #f5f3f3;
+    background-color: #f9f9f9; /* Light background color */
+  }
+  
+  .employee-section,
+  .next-of-kin-section {
+    margin-bottom: 20px;
+    display: flex; /* Use flexbox to arrange child elements */
+    flex-wrap: wrap; /* Allow wrapping of child elements */
+    justify-content: space-between; /* Space items evenly */
+    padding: 25px; /* Increase padding for sections */
+    /*border: 1px solid #ccc; /* Optional: add border to section */
+    border-radius: 8px; /* Optional: round the corners */
+    background-color: #fff; /* Optional: white background for sections */
+  }
+  
+  h3 {
+    margin-bottom: 10px;
+    color: #333; /* Darker text for headings */
+    width: 100%; /* Full width for heading */
+  }
+  
+  input,
+  select {
+    width: calc(48% - 10px); /* Two inputs per row with space */
+    padding: 10px;
+    margin: 5px 0; /* Space above and below inputs */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  input:focus,
+  select:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    margin-top: 20px; /* Space above the button container */
+  }
+  
+  button {
+    padding: 10px 15px; /* Keep reduced button size */
+    font-size: 14px; /* Smaller font size for buttons */
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+    width: auto; /* Allow button width to adjust based on content */
+    flex: none; /* Prevent buttons from stretching */
+    margin-right: 5px; /* Reduced space between buttons */
+  }
+  
+  /* First button styling */
+  button[type="submit"] {
+    background-color: rgb(104, 233, 104); /* Button color for submit */
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Second button styling */
+  button[type="reset"] {
+    background-color: red; /* Button color for reset */
+  }
+  
+  button[type="reset"]:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  
+  
+  /* Media Query for Small Screens */
+  @media (max-width: 600px) {
+    input,
+    select {
+      width: 100%; /* Full width on small screens */
+      margin: 5px 0; /* Adjust margin */
+    }
+  
+    .form-buttons {
+      flex-direction: column; /* Stack buttons on small screens */
+    }
+  
+    button {
+      width: 100%; /* Full width buttons */
+      margin-bottom: 10px; /* Space between buttons */
+    }
+  }
+  
