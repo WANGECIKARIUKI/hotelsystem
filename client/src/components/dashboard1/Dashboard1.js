@@ -1,8 +1,10 @@
-// Dashboard1.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { io } from 'socket.io-client';
 import './Dashboard.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
+const socket = io('http://localhost:5000'); // Connect to the backend WebSocket server
 
 function Dashboard1() {
     const [data, setData] = useState({
@@ -18,11 +20,22 @@ function Dashboard1() {
     });
 
     useEffect(() => {
+        // Fetch initial data from the server
         axios.get('http://localhost:5000/dashboard', {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }).then(response => {
             setData(response.data);
         }).catch(error => console.log(error));
+
+        // Listen for real-time updates from the server
+        socket.on('dashboard_update', (updatedData) => {
+            setData(updatedData); // Update state with new data
+        });
+
+        // Clean up socket connection on component unmount
+        return () => {
+            socket.disconnect();
+        };
     }, []);
 
     const metrics = [
@@ -42,7 +55,7 @@ function Dashboard1() {
             {metrics.map((metric) => (
                 <div className="card" key={metric.id}>
                     <i className={`${metric.icon} card-icon`} style={{ color: metric.color }}></i>
-                    <h2>{metric.value}</h2>
+                    <h2 style={{ color: 'white' }}>{metric.value}</h2>
                     <p>{metric.label}</p>
                 </div>
             ))}

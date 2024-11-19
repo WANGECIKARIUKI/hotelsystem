@@ -1,0 +1,102 @@
+/* Main container styling */
+.hotel-communication-container {
+  position: relative;
+  margin: 20px auto; /* Center the container horizontally */
+  margin-left: 260px; /* Offset to account for the sidebar width */
+  padding: 20px;
+  max-width: 900px; /* Prevent the container from stretching too wide */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevents content from breaking out */
+}
+
+/* Ensures the container doesn't get blocked by other UI components */
+.hotel-communication-container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* Content inside the container */
+.communication-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Styling for error message */
+.error-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.error-message {
+  color: white;
+  background-color: red;
+  padding: 15px;
+  border-radius: 5px;
+  max-width: 400px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Search bar styling */
+.search-bar input,
+.search-bar button,
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-bar button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Channel buttons */
+.channel-buttons button {
+  margin-right: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.channel-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Ensure textarea and input fields are visually appealing */
+textarea,
+input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Ensure responsiveness */
+@media screen and (max-width: 768px) {
+  .hotel-communication-container {
+    margin-left: 0; /* No offset for the sidebar on smaller screens */
+    padding: 10px;
+    width: 95%;
+  }
+
+  .communication-content {
+    gap: 15px;
+  }
+}

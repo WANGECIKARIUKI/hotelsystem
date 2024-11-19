@@ -1,46 +1,79 @@
+/* Sidebar.css */
+
+/* Sidebar container - fix its position at the left edge of the screen */
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #2c3e50;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .sidebar-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    transition: background-color 0.3s;
-    cursor: pointer;
-  }
-  
-  .sidebar-item:hover {
-    background-color: #34495e;
-  }
-  
-  /* Style for the links */
-  .sidebar-link {
-    text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-  }
-  
-  .sidebar-icon {
-    margin-right: 15px;
-    font-size: 18px;
-  }
-  
-  .sidebar-text {
-    font-size: 16px;
-  }
-  
+  position: fixed; /* Fix the sidebar to the left */
+  top: 0; /* Ensure it's at the top of the screen */
+  left: 0; /* Align it with the left edge of the screen */
+  width: 250px; /* Sidebar width */
+  height: 100vh; /* Full height of the viewport */
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Enable vertical scrolling */
+  z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+/* Sidebar item styles */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.sidebar-item:hover {
+  background-color: #444;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+}
+
+.sidebar-text {
+  font-size: 18px;
+}
+
+.dropdown-icon {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.dropdown {
+  margin-top: 10px;
+  background-color: #444;
+  padding-left: 20px;
+  border-radius: 5px;
+}
+
+.dropdown-item {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.dropdown-item:hover {
+  background-color: #555;
+}
+
+.dropdown-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.dropdown-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}

@@ -148,7 +148,7 @@ function Reservation() {
     };
 
     return (
-        <div className="reservation-form">
+        <div className="reservation-form1">
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             <form onSubmit={handleSubmit}>

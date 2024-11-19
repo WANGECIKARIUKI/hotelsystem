@@ -1,29 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+from server.models import NextOfKin, Staff
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/db_name'  # Update with your credentials
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# Staff Model
-class Staff(db.Model):
-    __tablename__ = 'staff'
+#new staff blueprint
+staff_routes = Blueprint('staff', __name__)
 
-    id = db.Column(db.Integer, primary_key=True)
-    hotel_id = db.Column(db.Integer, nullable=False)
-    name = db.Column(db.String(255), nullable=False)
-    phone_number = db.Column(db.String(15), nullable=False)
-    address = db.Column(db.Text)
-    role = db.Column(db.String(100))
-    shift = db.Column(db.String(50))
-    joining_date = db.Column(db.Date)
-    next_of_kin_name = db.Column(db.String(255))
-    next_of_kin_phone = db.Column(db.String(15))
-    salary = db.Column(db.Numeric(10, 2))
-
-    def __repr__(self):
+def __repr__(self):
         return f"<Staff {self.name}>"
 
 # Initialize the database
@@ -104,6 +93,49 @@ def change_shift(id):
     staff.shift = data['shift']
     db.session.commit()
     return jsonify({'message': 'Shift updated successfully'}), 200
+
+#new staff
+@staff_routes.route('/create_staff', methods=['POST'])
+def create_employee():
+    data = request.json
+    try:
+        employee = Staff(
+            hotel_id=data['hotel_id'],
+            first_name=data['first_name'],
+            middle_name=data.get('middle_name', ''),
+            last_name=data['last_name'],
+            id_card_type=data['id_card_type'],
+            id_card_number=data['id_card_number'],
+            contact_number=data['contact_number'],
+            email=data['email'],
+            residence=data['residence'],
+            role=data['role'],
+            shift_type=data['shift_type'],
+            salary=data['salary']
+        )
+        db.session.add(employee)
+        db.session.commit()
+
+        next_of_kin = NextOfKin(
+            employee_id=employee.id,
+            first_name=data['next_of_kin']['first_name'],
+            last_name=data['next_of_kin']['last_name'],
+            relation=data['next_of_kin']['relation'],
+            contact_number=data['next_of_kin']['contact_number'],
+            email=data['next_of_kin']['email'],
+            residence=data['next_of_kin']['residence']
+        )
+        db.session.add(next_of_kin)
+        db.session.commit()
+        return jsonify({"message": "Employee created successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 400
+
+@staff_routes.route('/staff/<int:hotel_id>', methods=['GET'])
+def get_employees(hotel_id):
+    staff = Staff.query.filter_by(hotel_id=hotel_id).all()
+    return jsonify([employee.to_dict() for employee in staff])
 
 if __name__ == '__main__':
     app.run(debug=True)

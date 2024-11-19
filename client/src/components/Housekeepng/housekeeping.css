@@ -1,0 +1,131 @@
+.housekeeping {
+    padding: 20px;
+}
+
+.housekeeping-form {
+    margin-bottom: 20px;
+}
+
+.housekeeping-form .form-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 600px; /* Sets a max width for the single-column form */
+    flex-wrap: wrap; /* Ensures form elements wrap on smaller screens */
+}
+
+.housekeeping-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.housekeeping-list th,
+.housekeeping-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.housekeeping-list th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Style options in the dropdowns based on their values */
+.status-select.clean {
+    background-color: #d4edda;
+}
+.status-select.cleaning_in_progress {
+    background-color: #ffeeba;
+}
+.status-select.dirty {
+    background-color: #f8d7da;
+}
+.status-select.out_of_service {
+    background-color: #d6d8d9;
+}
+
+.priority-select.low {
+    background-color: #177ce7;
+}
+.priority-select.high {
+    background-color: #e9172c;
+}
+
+.reservation-status.due_in {
+    background-color: hsla(134, 72%, 50%, 0.322);
+}
+.reservation-status.checked_in {
+    background-color: #b69020;
+}
+.reservation-status.due_out {
+    background-color: #9e1e29;
+}
+
+/* Increase Priority Column Size */
+.priority-column {
+    width: 150px; /* Increase width of Priority column */
+}
+
+/* Style pagination buttons */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Media Query for Tablets and Below */
+@media screen and (max-width: 768px) {
+    .housekeeping-form .form-group {
+        flex-direction: column; /* Stack form fields vertically */
+        width: 100%; /* Ensure form takes full width on smaller screens */
+    }
+
+    .housekeeping-list table {
+        font-size: 14px; /* Reduce font size for smaller screens */
+    }
+
+    .housekeeping-list th,
+    .housekeeping-list td {
+        padding: 6px; /* Adjust padding for smaller screens */
+    }
+
+    /* Adjust pagination buttons for smaller screens */
+    .pagination button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Media Query for Mobile Devices */
+@media screen and (max-width: 480px) {
+    .housekeeping-form .form-group {
+        gap: 5px; /* Reduce gap between form fields */
+    }
+
+    .housekeeping-list table {
+        font-size: 12px; /* Further reduce font size */
+    }
+
+    .housekeeping-list th,
+    .housekeeping-list td {
+        padding: 5px; /* Reduce padding */
+    }
+
+    /* Further adjust pagination for mobile devices */
+    .pagination button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}

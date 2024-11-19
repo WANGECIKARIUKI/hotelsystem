@@ -1,0 +1,144 @@
+/* Container Styling */
+.create-service-container {
+  max-width: 800px;           /* Increase max width for the form */
+  margin: auto;               /* Center the form on the page */
+  padding: 30px;              /* Increase padding inside the form */
+  border-radius: 8px;         /* Slightly larger rounded corners for the form */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for form */
+  background-color: #f9f9f9;  /* Light background for contrast */
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Section Styling */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section {
+  padding: 15px 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.section h3 {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between; /* Distribute inputs evenly */
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* Adjust heights */
+input[type="file"],
+input[type="checkbox"],
+input[type="datetime-local"],
+input[type="time"],
+select {
+  height: 40px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  margin-top: 8px;
+}
+
+/* Flexbox Alignment for Rows */
+.form-group .input-row {
+  flex: 1 1 48%; /* Take 48% of the row width with spacing */
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group .input-row.full-width {
+  flex: 1 1 100%;
+}
+
+/* Button Styling */
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+button.save-btn:hover {
+  background-color: #218838;
+}
+
+button.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+button.cancel-btn:hover {
+  background-color: #c82333;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+
+  .form-group .input-row {
+    flex: 1 1 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .form-group .input-row {
+    flex: 1 1 48%; /* Two inputs per row */
+  }
+}

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './sidebar.css';
 
 const Sidebar = () => {
+  
+  const [isReportsOpen, setIsReportsOpen] = useState(false);
+
+  const toggleReportsDropdown = () => {
+    setIsReportsOpen(!isReportsOpen);
+  };
+
   return (
     <div className="sidebar">
       <ul className="sidebar-list">
@@ -43,6 +50,48 @@ const Sidebar = () => {
           </Link>
         </li>
         <li className="sidebar-item">
+          <Link to="/communication" className="sidebar-link">
+            <i className="fas fa-user sidebar-icon"></i>
+            <span className="sidebar-text">Communications</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
+          <Link to="/housekeeping" className="sidebar-link">
+            <i className="fas fa-user sidebar-icon"></i>
+            <span className="sidebar-text">Housekeeping</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
+          <Link to="/services" className="sidebar-link">
+            <i className="fas fa-user sidebar-icon"></i>
+            <span className="sidebar-text">Services</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
+          <Link to="/category" className="sidebar-link">
+            <i className="fas fa-user sidebar-icon"></i>
+            <span className="sidebar-text">Categories</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
+          <Link to="/orders" className="sidebar-link">
+            <i className="fas fa-user sidebar-icon"></i>
+            <span className="sidebar-text">Orders</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
+          <Link to="/inventory" className="sidebar-link">
+            <i className="fas fa-user sidebar-icon"></i>
+            <span className="sidebar-text">Inventory Management</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
+          <Link to="/invoices" className="sidebar-link">
+            <i className="fas fa-user sidebar-icon"></i>
+            <span className="sidebar-text">Invoice Generation</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
           <Link to="/newstaff" className="sidebar-link">
             <i className="fas fa-user-plus sidebar-icon"></i>
             <span className="sidebar-text">New Staff</span>
@@ -60,6 +109,28 @@ const Sidebar = () => {
             <span className="sidebar-text">Manage Complaints</span>
           </Link>
         </li>
+         {/* Reports Dropdown */}
+         <li className="sidebar-item" onClick={toggleReportsDropdown}>
+          <i className="fas fa-file-alt sidebar-icon"></i>
+          <span className="sidebar-text">Reports</span>
+          <i className={`fas ${isReportsOpen ? 'fa-angle-up' : 'fa-angle-down'} dropdown-icon`}></i>
+        </li>
+        {isReportsOpen && (
+          <ul className="dropdown">
+            <li className="dropdown-item">
+              <Link to="/inventoryreport" className="dropdown-link">Inventory Report</Link>
+            </li>
+            <li className="dropdown-item">
+              <Link to="/revenue-report" className="dropdown-link">Revenue Report</Link>
+            </li>
+            <li className="dropdown-item">
+              <Link to="/employee-report" className="dropdown-link">Employee Report</Link>
+            </li>
+            <li className="dropdown-item">
+              <Link to="/rooms-report" className="dropdown-link">Rooms Report</Link>
+            </li>
+          </ul>
+        )}
         <li className="sidebar-item">
           <Link to="/settings" className="sidebar-link">
             <i className="fas fa-cogs sidebar-icon"></i>

@@ -105,97 +105,99 @@ const Managerooms = () => {
     const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
 
     return (
-        <div className="managerooms-container">
-            <h2>Manage Rooms</h2>
-            {message && <p className="message">{message}</p>}
-            <div className="controls">
-                <select onChange={(e) => setEntriesPerPage(e.target.value)} value={entriesPerPage}>
-                    <option value="5">Show 5</option>
-                    <option value="10">Show 10</option>
-                    <option value="25">Show 25</option>
-                    <option value="50">Show 50</option>
-                </select>
-                <button className="add-room-button" onClick={() => setModalData({ action: 'add' })}>
-                    <FaPlus /> Add Room
-                </button>
-            </div>
-            <table className="rooms-table">
-                <thead>
-                    <tr>
-                        <th>Room Number</th>
-                        <th>Room Type</th>
-                        <th>Booking Status</th>
-                        <th>Book</th>
-                        <th>Check In</th>
-                        <th>Check Out</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentRooms.map((room) => (
-                        <tr key={room.id}>
-                            <td>{room.room_number}</td>
-                            <td>{room.room_type}</td>
-                            <td>{room.booking_status ? 'Booked' : 'Available'}</td>
-                            <td>
-                                {!room.booking_status && (
-                                    <button 
-                                        className="book-button"
-                                        onClick={() => navigate("/reservations")}
-                                    >
-                                        Book
-                                    </button>
-                                )}
-                            </td>
-                            <td>
-                                <button 
-                                    className="checkin-button"
-                                    onClick={() => setModalData({ action: 'checkin', room })}
-                                    disabled={room.booking_status}
-                                >
-                                    Check In
-                                </button>
-                            </td>
-                            <td>
-                                <button 
-                                    className="checkout-button"
-                                    onClick={() => setModalData({ action: 'checkout', room })}
-                                    disabled={!room.booking_status}
-                                >
-                                    Check Out
-                                </button>
-                            </td>
-                            <td>
-                                <div className="action-buttons">
-                                    <button onClick={() => setModalData({ action: 'view', room })}>
-                                        <FaEye />
-                                    </button>
-                                    <button onClick={() => setModalData({ action: 'edit', room })}>
-                                        <FaEdit />
-                                    </button>
-                                    <button onClick={() => handleCheckOut(room)}>
-                                        <FaTrashAlt />
-                                    </button>
-                                </div>
-                            </td>
+        <div className="container">
+            <div className="managerooms-container">
+                <h2>Manage Rooms</h2>
+                {message && <p className="message">{message}</p>}
+                <div className="controls">
+                    <select onChange={(e) => setEntriesPerPage(e.target.value)} value={entriesPerPage}>
+                        <option value="5">Show 5</option>
+                        <option value="10">Show 10</option>
+                        <option value="25">Show 25</option>
+                        <option value="50">Show 50</option>
+                    </select>
+                    <button className="add-room-button" onClick={() => setModalData({ action: 'add' })}>
+                        <FaPlus /> Add Room
+                    </button>
+                </div>
+                <table className="rooms-table">
+                    <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Room Type</th>
+                            <th>Booking Status</th>
+                            <th>Book</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="pagination">
-                <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
-                <span>Page {currentPage} of {Math.ceil(rooms.length / entriesPerPage)}</span>
-                <button onClick={() => handlePageChange('next')} disabled={indexOfLastRoom >= rooms.length}>Next</button>
+                    </thead>
+                    <tbody>
+                        {currentRooms.map((room) => (
+                            <tr key={room.id}>
+                                <td>{room.room_number}</td>
+                                <td>{room.room_type}</td>
+                                <td>{room.booking_status ? 'Booked' : 'Available'}</td>
+                                <td>
+                                    {!room.booking_status && (
+                                        <button 
+                                            className="book-button"
+                                            onClick={() => navigate("/reservations")}
+                                        >
+                                            Book
+                                        </button>
+                                    )}
+                                </td>
+                                <td>
+                                    <button 
+                                        className="checkin-button"
+                                        onClick={() => setModalData({ action: 'checkin', room })}
+                                        disabled={room.booking_status}
+                                    >
+                                        Check In
+                                    </button>
+                                </td>
+                                <td>
+                                    <button 
+                                        className="checkout-button"
+                                        onClick={() => setModalData({ action: 'checkout', room })}
+                                        disabled={!room.booking_status}
+                                    >
+                                        Check Out
+                                    </button>
+                                </td>
+                                <td>
+                                    <div className="action-buttons">
+                                        <button onClick={() => setModalData({ action: 'view', room })}>
+                                            <FaEye />
+                                        </button>
+                                        <button onClick={() => setModalData({ action: 'edit', room })}>
+                                            <FaEdit />
+                                        </button>
+                                        <button onClick={() => handleCheckOut(room)}>
+                                            <FaTrashAlt />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div className="pagination">
+                    <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
+                    <span>Page {currentPage} of {Math.ceil(rooms.length / entriesPerPage)}</span>
+                    <button onClick={() => handlePageChange('next')} disabled={indexOfLastRoom >= rooms.length}>Next</button>
+                </div>
+                {modalData && (
+                    <Roommodal
+                        modalData={modalData}
+                        onClose={() => setModalData(null)}
+                        onAddRoom={handleAddRoom}
+                        onCheckIn={handleCheckIn}
+                        onCheckOut={handleCheckOut}
+                    />
+                )}
             </div>
-            {modalData && (
-                <Roommodal
-                    modalData={modalData}
-                    onClose={() => setModalData(null)}
-                    onAddRoom={handleAddRoom}
-                    onCheckIn={handleCheckIn}
-                    onCheckOut={handleCheckOut}
-                />
-            )}
         </div>
     );
 };

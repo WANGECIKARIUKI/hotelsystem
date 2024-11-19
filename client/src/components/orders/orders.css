@@ -1,0 +1,183 @@
+/* Orders Page Styles */
+.orders-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Summary Cards */
+.summary-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the cards */
+  margin: 20px 0;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.7rem; /* Increase padding */
+  background: #333;
+  color: #f0bfbf;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.2rem; /* Larger font size */
+  width: 120px; /* Increase width */
+  margin: 4px; /* Add spacing between cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.cards:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Services to Confirm Section */
+.services-to-confirm {
+  margin: 20px 0;
+}
+
+.service-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  background-color: #f8f9fa;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.service-card button {
+  margin-top: 10px;
+}
+
+/* Filters Section */
+.filters-section input,
+.filters-section select {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  max-width: 250px; /* Increase the width */
+}
+
+/* Dropdown background color styles based on selection */
+select {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+select:focus {
+  outline: none;
+  border: 2px solid #007bff;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+/* Slider styles */
+.services-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+}
+
+.service-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  min-width: 200px;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .summary-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cards {
+    width: 200px; /* Adjust card width for small screens */
+  }
+
+  .filters-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  table th,
+  table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards {
+    width: 180px; /* Adjust card width further for extra small screens */
+  }
+
+  .filters-section input,
+  .filters-section select {
+    max-width: 100%; /* Make inputs and selects full width on small screens */
+  }
+}

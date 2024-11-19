@@ -169,26 +169,6 @@ def cancel_reservation(reservation_id):
     db.session.commit()
     return jsonify({"message": "Reservation canceled successfully"}), 200
 
-
-#dashboard1
-@app.route('/dashboard', methods=['GET'])
-@jwt_required()
-def get_dashboard_data():
-    hotel_id = get_jwt_identity()
-    data = {
-        'total_rooms': Room.query.filter_by(hotel_id=hotel_id).count(),
-        'total_reservations': Reservation.query.filter_by(hotel_id=hotel_id).count(),
-        'number_of_staff': Staff.query.filter_by(hotel_id=hotel_id).count(),
-        'booked_rooms': Room.query.filter_by(hotel_id=hotel_id, is_available=False).count(),
-        'available_rooms': Room.query.filter_by(hotel_id=hotel_id, is_available=True).count(),
-        'checked_in_clients': Reservation.query.filter_by(hotel_id=hotel_id, is_checked_in=True).count(),
-        'checkouts_today': Reservation.query.filter_by(hotel_id=hotel_id).filter(func.date(Reservation.check_out_date) == func.date(func.now())).count(),
-        'pending_payments': Reservation.query.filter_by(hotel_id=hotel_id, is_paid=False).count(),
-        'total_revenue': Hotel.query.filter_by(id=hotel_id).first().revenue_generated,
-        'notifications': [n.message for n in Notification.query.filter_by(hotel_id=hotel_id).order_by(Notification.created_at.desc()).all()]
-    }
-    return jsonify(data)
-
 #manage rooms
 @app.route('/rooms', methods=['GET'])
 def get_rooms():

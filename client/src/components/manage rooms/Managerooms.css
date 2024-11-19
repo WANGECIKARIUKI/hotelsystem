@@ -1,130 +1,126 @@
-.managerooms-container {
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-.controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.managerooms-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 .rooms-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.rooms-table th, .rooms-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.rooms-table th {
-    background-color: #f2f2f2;
-}
-
-.checkin-button, .checkout-button, .view-button {
-    padding: 10px 15px;
-    margin: 5px;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    flex: none;
-}
-
-.checkin-button {
-    background-color: #28a745; /* Green for check-in */
-    flex: none;
-}
-
-.checkout-button {
-    background-color: #dc3545; /* Red for check-out */
-    flex: none;
-}
-
-.view-button {
-    background-color: #007bff; /* Blue for view */
-    flex: none;
-}
-
-/* Align "Show entries" on the left, "Add Room" button on the right */
-.controls select {
-    margin-right: auto;
-}
-
-.add-room-button {
-    margin-left: auto;
-    flex: none;
-}
-
-/* Pagination styling with buttons aligned to the right */
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     margin-top: 20px;
 }
 
-.pagination button {
-    padding: 5px 10px;
+.rooms-table th, .rooms-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+
+.add-room-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.add-room-button:hover {
+    background-color: #45a049;
+}
+
+/* Book button */
+.book-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.book-button:hover {
+    background-color: #45a049;
+}
+
+/* Check In button */
+.checkin-button {
+    background-color: #007bff; /* Blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.checkin-button:hover {
+    background-color: #0056b3;
+}
+
+/* Check Out button */
+.checkout-button {
+    background-color: #dc3545; /* Red */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.checkout-button:hover {
+    background-color: #c82333;
+}
+
+/* Action buttons */
+.view-button, .edit-button, .delete-button {
+    background-color: #f0ad4e; /* Yellow for Action buttons */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
     margin: 0 5px;
-    flex: none;
 }
 
-/* Media Queries for responsiveness */
-@media (max-width: 768px) {
-    .controls {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .controls select, .add-room-button {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    .rooms-table th, .rooms-table td {
-        padding: 6px;
-    }
-
-    .rooms-table {
-        font-size: 14px;
-    }
-
-    .pagination {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .pagination button {
-        margin: 5px 0;
-    }
-
-    /* Button sizes for mobile */
-    .checkin-button, .checkout-button, .view-button {
-        padding: 8px 12px;
-        font-size: 14px;
-    }
+.view-button:hover {
+    background-color: #ec971f;
 }
 
-@media (max-width: 480px) {
-    .managerooms-container {
-        padding: 15px;
-    }
-
-    .rooms-table {
-        font-size: 12px;
-    }
-
-    .checkin-button, .checkout-button, .view-button {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-
-    .pagination button {
-        font-size: 12px;
-    }
+.edit-button:hover {
+    background-color: #d9534f;
 }
+
+.delete-button:hover {
+    background-color: #d9534f;
+}
+
+/* Optional: To style the entire actions section */
+.action-buttons {
+    display: flex;
+    align-items: center;
+}
+

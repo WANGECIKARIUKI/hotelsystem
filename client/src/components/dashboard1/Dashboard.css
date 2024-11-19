@@ -16,7 +16,7 @@
     align-items: center;
     padding: 2.5rem; /* Increase padding */
     background: #333;
-    color: white;
+    color: hsl(0, 55%, 85%);
     border-radius: 12px;
     text-align: center;
     font-size: 1.6rem; /* Slightly larger font size */
