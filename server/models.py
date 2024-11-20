@@ -375,4 +375,48 @@ class Inventory(db.Model):
     description = db.Column(db.String(255))
     last_updated = db.Column(db.DateTime, nullable=False)
 
-    hotel = db.relationship('Hotel', backref=db.backref('inventories', lazy=True))      
+    hotel = db.relationship('Hotel', backref=db.backref('inventories', lazy=True))   
+
+#orders report
+class Hotel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    orders = db.relationship('Order', backref='hotel', lazy=True)
+    
+class Report(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    hotel_id = db.Column(db.Integer, db.ForeignKey('hotel.id'), nullable=False)
+    total_revenue = db.Column(db.Float, nullable=False)
+    total_expenses = db.Column(db.Float, nullable=False)
+    total_profit = db.Column(db.Float, nullable=False)
+    report_type = db.Column(db.String(50))  # e.g., daily, weekly, monthly, annual
+    created_on = db.Column(db.DateTime, default=datetime.utcnow)       
+
+#services report
+class Hotel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    services = db.relationship('Service', backref='hotel', lazy=True)
+    expenses = db.relationship('Expense', backref='hotel', lazy=True)
+
+class Expense(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    hotel_id = db.Column(db.Integer, db.ForeignKey('hotel.id'), nullable=False)
+    category = db.Column(db.String(100))
+    amount = db.Column(db.Float)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Report(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    hotel_id = db.Column(db.Integer, db.ForeignKey('hotel.id'), nullable=False)
+    report_type = db.Column(db.String(50))  # daily, weekly, monthly, yearly
+    data = db.Column(db.JSON)  # Store aggregated data in JSON format
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)    
+
+
+#gueest reports
+class Revenue(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    hotel_id = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    amount = db.Column(db.Float, nullable=False)

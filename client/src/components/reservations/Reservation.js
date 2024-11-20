@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
-import './Reservation.css';
 
 function Reservation() {
     const [formData, setFormData] = useState({
@@ -35,12 +34,10 @@ function Reservation() {
     };
 
     useEffect(() => {
-        // Load rooms for the hotel on mount
         fetchReservedRooms();
     }, []);
 
     useEffect(() => {
-        // Filter reserved rooms based on the search query
         if (searchQuery) {
             const filtered = reservedRooms.filter(room => 
                 room.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -69,7 +66,7 @@ function Reservation() {
         const rooms = parseInt(data.no_of_rooms) || 1;
         const adults = parseInt(data.no_of_adults) || 0;
         const children = parseInt(data.no_of_children) || 0;
-        
+
         const additionalGuestCharge = (adults + children) * 20;
         return roomRate * rooms + additionalGuestCharge;
     };
@@ -112,7 +109,7 @@ function Reservation() {
             if (response.status === 201) {
                 setShowPopup(true);
                 setReservedRooms([...reservedRooms, { ...formData, id: response.data.id }]);
-                setErrorMessage(''); // Reset error message
+                setErrorMessage('');
             }
         } catch (error) {
             console.error("Error creating reservation:", error);
@@ -147,99 +144,138 @@ function Reservation() {
         }
     };
 
+    const inputStyle = {
+        width: "100%",
+        padding: "12px",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        fontSize: "14px",
+        marginBottom: "15px",
+        justifyContent: "center",
+        textAlign: "center"
+    };
+
+    const buttonStyle = {
+        padding: "12px 24px",
+        background: "#007BFF",
+        color: "#fff",
+        border: "none",
+        borderRadius: "8px",
+        cursor: "pointer",
+        fontSize: "16px",
+        fontWeight: "bold",
+        width: "40%"
+    };
+
+    const sectionStyle = {
+        marginBottom: "40px",
+        padding: "20px",
+        backgroundColor: "#f9f9f9",
+        borderRadius: "10px",
+        boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)"
+    };
+
+    const labelStyle = {
+        textAlign: "left", 
+        marginBottom: "5px", 
+        fontWeight: "bold", 
+        display: "block"
+    };
+
     return (
-        <div className="reservation-form1">
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <div style={{ padding: "30px", maxWidth: "900px", margin: "0 auto", fontFamily: "Arial, sans-serif", textAlign: 'center' }}>
+            {errorMessage && <p style={{ color: 'red', fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>{errorMessage}</p>}
 
-            <form onSubmit={handleSubmit}>
-                <div className="section">
-                    <h2>Room Information</h2>
-                    <div className="form-row">
-                        <input type="text" name="room_type" onChange={handleChange} placeholder="Room Type" required />
-                        <input type="text" name="room_number" onChange={handleChange} placeholder="Room Number" required />
-                    </div>
-                    <div className="form-row">
-                        <input type="date" name="check_in_date" onChange={handleChange} required />
-                        <input type="date" name="check_out_date" onChange={handleChange} required />
-                    </div>
-                    <div className="form-row">
-                        <input type="number" name="no_of_rooms" onChange={handleChange} placeholder="No. of Rooms" required />
-                        <input type="number" name="no_of_children" onChange={handleChange} placeholder="No. of Children" required />
-                    </div>
-                    <div className="form-row">
-                        <input type="number" name="no_of_adults" onChange={handleChange} placeholder="No. of Adults" required />
-                        <input type="text" name="amount" value={formData.amount} placeholder="Amount to be Charged" readOnly />
-                    </div>
-                </div>
+            {/* Reservation Form */}
+            <div style={sectionStyle}>
+                <form onSubmit={handleSubmit}>
+                    <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "15px" }}>Room Information</h2>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+                        <label htmlFor="room_type" style={labelStyle}>Room Type:</label>
+                        <input type="text" id="room_type" name="room_type" onChange={handleChange} required style={inputStyle} />
+                        
+                        <label htmlFor="room_number" style={labelStyle}>Room Number:</label>
+                        <input type="text" id="room_number" name="room_number" onChange={handleChange} required style={inputStyle} />
 
-                <section className="section">
-                    <h2>Customer Information</h2>
-                    <div className="form-row">
-                        <input type="text" name="first_name" onChange={handleChange} placeholder="First Name" required />
-                        <input type="text" name="last_name" onChange={handleChange} placeholder="Last Name" required />
-                    </div>
-                    <div className="form-row">
-                        <input type="email" name="email" onChange={handleChange} placeholder="Email" required />
-                        <input type="text" name="home_address" onChange={handleChange} placeholder="Home Address" required />
-                    </div>
-                    <div className="form-row">
-                        <input type="tel" name="telephone" onChange={handleChange} placeholder="Telephone Number" required />
-                    </div>
-                </section>
+                        <label htmlFor="check_in_date" style={labelStyle}>Check-in Date:</label>
+                        <input type="date" id="check_in_date" name="check_in_date" onChange={handleChange} required style={inputStyle} />
 
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Booking...' : 'Book Now'}
-                </button>
-            </form>
+                        <label htmlFor="check_out_date" style={labelStyle}>Check-out Date:</label>
+                        <input type="date" id="check_out_date" name="check_out_date" onChange={handleChange} required style={inputStyle} />
 
-            {loading && (
-                <div className="loading-indicator">
-                    <div className="spinner"></div>
-                </div>
-            )}
+                        <label htmlFor="no_of_rooms" style={labelStyle}>No. of Rooms:</label>
+                        <input type="number" id="no_of_rooms" name="no_of_rooms" onChange={handleChange} required style={inputStyle} />
+
+                        <label htmlFor="no_of_children" style={labelStyle}>No. of Children:</label>
+                        <input type="number" id="no_of_children" name="no_of_children" onChange={handleChange} required style={inputStyle} />
+
+                        <label htmlFor="no_of_adults" style={labelStyle}>No. of Adults:</label>
+                        <input type="number" id="no_of_adults" name="no_of_adults" onChange={handleChange} required style={inputStyle} />
+
+                        <label htmlFor="amount" style={labelStyle}>Amount to be Charged:</label>
+                        <input type="text" id="amount" name="amount" value={formData.amount} readOnly style={{ ...inputStyle, background: "#f4f4f4" }} />
+                    </div>
+
+                    {/* Customer Information Section */}
+                    <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "15px" }}>Customer Information</h2>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+                        <label htmlFor="first_name" style={labelStyle}>First Name:</label>
+                        <input type="text" id="first_name" name="first_name" onChange={handleChange} required style={inputStyle} />
+
+                        <label htmlFor="last_name" style={labelStyle}>Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" onChange={handleChange} required style={inputStyle} />
+
+                        <label htmlFor="email" style={labelStyle}>Email:</label>
+                        <input type="email" id="email" name="email" onChange={handleChange} required style={inputStyle} />
+
+                        <label htmlFor="home_address" style={labelStyle}>Home Address:</label>
+                        <input type="text" id="home_address" name="home_address" onChange={handleChange} required style={inputStyle} />
+
+                        <label htmlFor="telephone" style={labelStyle}>Phone Number:</label>
+                        <input type="text" id="telephone" name="telephone" onChange={handleChange} required style={inputStyle} />
+                    </div>
+
+                    <button type="submit" style={buttonStyle}>
+                        {loading ? 'Booking...' : 'Book Now'}
+                    </button>
+                </form>
+            </div>
 
             {showPopup && (
                 <div className="popup">
                     <AiOutlineCheckCircle size={48} color="green" />
-                    <h3>Reservation Confirmed!</h3>
-                    <p>Details:</p>
-                    <ul>
-                        <li>{formData.first_name} {formData.last_name}</li>
-                        <li>{formData.room_type} - Room {formData.room_number}</li>
-                        <li>Check-in: {formData.check_in_date} | Check-out: {formData.check_out_date}</li>
-                        <li>Total Amount: ${formData.amount}</li>
-                    </ul>
-                    <button onClick={() => setShowPopup(false)}>Close</button>
+                    <h2>Reservation Successful!</h2>
+                    <button onClick={() => setShowPopup(false)} style={buttonStyle}>Close</button>
                 </div>
             )}
 
-            <section className="section">
-                {/* Search Functionality */}
-                <div className="search-container">
-                    <input
-                        type="text"
-                        className="search-input"
-                        placeholder="Search by Guest Name or Room Number"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+            {/* Search & Reservation History Section */}
+            <div style={sectionStyle}>
+                <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "15px" }}>Search Reservations</h2>
+                <input 
+                    type="text" 
+                    value={searchQuery} 
+                    onChange={(e) => setSearchQuery(e.target.value)} 
+                    placeholder="Search by Name or Room Number"
+                    style={{ width: '60%', padding: '10px', borderRadius: '8px', border: '1px solid #ccc', marginBottom: '20px' }}
+                />
+                <div>
+                    {filteredRooms.length ? (
+                        <ul>
+                            {filteredRooms.map(room => (
+                                <li key={room.id}>
+                                    {room.first_name} {room.last_name} - Room {room.room_number}
+                                    <button onClick={() => handleCheckOut(room.id)} style={{ marginLeft: '10px', padding: '8px', background: '#FF6347', color: '#fff', borderRadius: '8px' }}>
+                                        Check-out
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No reservations found</p>
+                    )}
                 </div>
-                <h2>Reserved Rooms</h2>
-                {filteredRooms.length === 0 ? (
-                    <p>No rooms reserved.</p>
-                ) : (
-                    <ul>
-                        {filteredRooms.map(room => (
-                            <li key={room.id}>
-                                {room.first_name} {room.last_name} - Room {room.room_number} - Check-out: {room.check_out_date}
-                                <button onClick={() => handleCheckOut(room.id)} disabled={loading}>
-                                    {loading ? 'Checking Out...' : 'Check Out'}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </section>
+            </div>
         </div>
     );
 }

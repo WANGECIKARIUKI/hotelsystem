@@ -1,79 +1,89 @@
-/* Sidebar.css */
-
-/* Sidebar container - fix its position at the left edge of the screen */
+/* Main Sidebar Styles */
 .sidebar {
-  position: fixed; /* Fix the sidebar to the left */
-  top: 0; /* Ensure it's at the top of the screen */
-  left: 0; /* Align it with the left edge of the screen */
-  width: 250px; /* Sidebar width */
-  height: 100vh; /* Full height of the viewport */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Full width when open */
+  height: 100%;
   background-color: #333;
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto; /* Enable vertical scrolling */
-  z-index: 1000; /* Ensure it stays on top of other content */
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  overflow-y: auto; /* Enables vertical scrolling when content overflows */
+  z-index: 100; /* Ensure the sidebar is above other content */
 }
 
-/* Sidebar item styles */
+.sidebar-closed {
+  width: 50px; /* Minimal width to show icons */
+}
+
+.sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .sidebar-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.sidebar-item:hover {
-  background-color: #444;
+  margin: 10px 0;
 }
 
 .sidebar-link {
+  color: white;
   text-decoration: none;
-  color: #fff;
   display: flex;
   align-items: center;
+  padding: 10px 20px;
+  transition: padding 0.3s ease;
+}
+
+.sidebar-closed .sidebar-link {
+  padding: 10px 10px; /* Adjust padding for minimal sidebar */
+  justify-content: center; /* Center the icons when sidebar is closed */
 }
 
 .sidebar-icon {
   margin-right: 10px;
+  transition: margin-right 0.3s ease;
+}
+
+.sidebar-closed .sidebar-icon {
+  margin-right: 0; /* Remove margin for icons in the closed state */
 }
 
 .sidebar-text {
-  font-size: 18px;
+  display: inline-block; /* Default state */
+  transition: opacity 0.3s ease;
 }
 
-.dropdown-icon {
-  margin-left: auto;
-  transition: transform 0.3s ease;
+.sidebar-closed .sidebar-text {
+  display: none; /* Hide text when sidebar is closed */
 }
 
-.dropdown {
-  margin-top: 10px;
-  background-color: #444;
-  padding-left: 20px;
-  border-radius: 5px;
-}
+.home-icon { color: #4CAF50; }
+.profile-icon { color: #2196F3; }
+.reservation-icon { color: #FF9800; }
+.manage-rooms-icon { color: #9C27B0; }
+.front-desk-icon { color: #00BCD4; }
+.guest-management-icon { color: #FF5722; }
+.communication-icon { color: #607D8B; }
+.housekeeping-icon { color: #8BC34A; }
+.services-icon { color: #FFC107; }
+.category-icon { color: #3F51B5; }
+.orders-icon { color: #E91E63; }
+.inventory-icon { color: #9E9E9E; }
+.invoices-icon { color: #795548; }
+.new-staff-icon { color: #9C27B0; }
+.manage-staff-icon { color: #673AB7; }
+.complaints-icon { color: #FF5722; }
+.reports-icon { color: #00BCD4; }
+.settings-icon { color: #607D8B; }
+.logout-icon { color: #F44336; }
 
-.dropdown-item {
-  padding: 10px;
-  font-size: 16px;
+
+/* Hamburger Menu */
+.hamburger-menu {
+  position: fixed; /* Make it fixed so it's always visible */
+  top: 20px; /* Position it near the top */
+  left: 10px; /* Ensure it's inside the viewport */
   cursor: pointer;
-  color: #ccc;
-}
-
-.dropdown-item:hover {
-  background-color: #555;
-}
-
-.dropdown-link {
-  color: #ccc;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.dropdown-link:hover {
-  color: #fff;
-  text-decoration: underline;
+  z-index: 200; /* Ensure it appears above the sidebar */
 }

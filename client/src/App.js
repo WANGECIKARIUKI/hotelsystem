@@ -23,6 +23,9 @@ import Communication from './components/communications/communication';
 import Createinvoice from './components/accounting/Createinvoice';
 import Inventory from './components/inventory/Inventory';
 import Inventoryreport from './pages/reports/Inventoryreports';
+import Orderreport from './pages/reports/Orderreport';
+import Servicereport from './pages/reports/Servicereport';
+import Guestreport from './pages/reports/Guestreport';
 //import Frontdesk from './components/frontdesk/Frontdesk';
 //import Housekeeping from './components/housekeeping/Housekeeping';
 //import Inventorymanagement from './components/inventory management/Inventorymanagement';
@@ -41,7 +44,7 @@ function App() {
         <Route path = '/' element = {<Dashboard1 />} />
         <Route path = '/dashboard' element = {<Dashboard />} />
         <Route path = '/frontdesk' element = {<Frontdesk />} />
-        <Route path = '/reservations' element = {<Reservation />} />
+        <Route path="/reservation" element={<div className="reservation-container"><Reservation /></div>} />
         <Route path = '/managerooms' element = {<Managerooms />} />
         <Route path = '/newstaff' element = {<Newstaff />} />
         <Route path = '/managestaff' element = {<Managestaff />} />
@@ -60,6 +63,9 @@ function App() {
         <Route path = '/invoices' element = {<Createinvoice/>} />
         <Route path = '/inventory' element = {<Inventory/>} />
         <Route path = '/inventoryreport' element = {<Inventoryreport/>} />
+        <Route path = '/orderreport' element = {<Orderreport/>} />
+        <Route path = '/servicereport' element = {<Servicereport/>} />
+        <Route path = '/guestreport' element = {<Guestreport/>} />
 
       </Routes>
       

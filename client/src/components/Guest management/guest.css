@@ -1,64 +1,59 @@
 .guest-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-section {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1.5rem;
-    background-color: #f9f9f9;
+    margin-bottom: 20px;
 }
 
 .section-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-    gap: 0.5rem; /* Add gap between rows and columns */
+    display: flex;
+    flex-direction: column; /* Ensures one input per row */
 }
 
 .section-heading {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 1rem;
-    grid-column: span 2; /* Make the heading span both columns */
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+label {
+    margin-bottom: 10px; /* Space between label and input */
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%; /* Ensure input and select fields take up the full width */
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px; /* Space between input fields */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .large-input {
-    width: 90%; /* Slightly reduced width to fit comfortably in two columns */
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%;
 }
 
-.save-button {
-    margin-top: 1.5rem;
-    padding: 0.75rem 1.5rem;
+button.save-button {
+    width: 100%;
+    padding: 10px;
+    background-color: navy;
     color: white;
-    background-color: navy; /* Corrected color */
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    width: fit-content;
 }
 
-/* Media Query for smaller screens */
-@media (max-width: 768px) {
-    .section-container {
-        grid-template-columns: 1fr; /* Switch to a single column layout */
-    }
-
-    .large-input {
-        width: 100%; /* Make inputs full width on small screens */
-    }
-
-    .section-heading {
-        font-size: 1.3rem;
-    }
-
-    .save-button {
-        width: 100%; /* Full width button on small screens */
-        padding: 0.75rem;
-    }
+button.save-button:hover {
+    background-color: darkblue;
 }

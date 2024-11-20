@@ -11,6 +11,8 @@ function Managecomplaints() {
     const [hotelId] = useState(1); // Replace with actual hotel ID from authentication
     const [resolvedId, setResolvedId] = useState(null);
     const [budget, setBudget] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [complaintsPerPage] = useState(5);
 
     const fetchComplaints = async () => {
         try {
@@ -66,7 +68,6 @@ function Managecomplaints() {
             }
         } catch (error) {
             console.error('Failed to fetch complaints:', error);
-            // Set dummy data if there’s a network error or parsing issue
             setComplaints([
                 {
                     id: 1,
@@ -139,119 +140,142 @@ function Managecomplaints() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ budget, resolved: true }), // Sending resolved status
+                body: JSON.stringify({ budget, resolved: true }),
             });
 
             if (response.ok) {
-                await fetchComplaints();  // Refresh complaints list
-                setResolvedId(null);       // Close the popup
-                setBudget(0);              // Reset the budget input
+                await fetchComplaints();
+                setResolvedId(null);
+                setBudget(0);
             } else {
-                console.error("Failed to resolve complaint: ", response.statusText);
                 alert("Failed to resolve the complaint.");
             }
         } catch (error) {
-            console.error("Error resolving complaint: ", error);
             alert("An error occurred while resolving the complaint.");
         }
     };
 
-    return (
-        <div className="complaints">
-            <h1>Manage Complaints</h1>
+    // Get current complaints based on pagination
+    const indexOfLastComplaint = currentPage * complaintsPerPage;
+    const indexOfFirstComplaint = indexOfLastComplaint - complaintsPerPage;
+    const currentComplaints = complaints.slice(indexOfFirstComplaint, indexOfLastComplaint);
 
-            <form onSubmit={handleSubmit} className="complaint-form">
-                <div className="form-section">
-                    <div className="input-group">
-                        <input
-                            type="text"
-                            name="complainant_name"
-                            placeholder="Complainant Name"
-                            value={complaint.complainant_name}
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    return (
+        <div className="container">
+            <div className="complaints">
+                <h1>Manage Complaints</h1>
+
+                <form onSubmit={handleSubmit} className="complaint-form">
+                    <div className="form-section">
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                name="complainant_name"
+                                placeholder="Complainant Name"
+                                value={complaint.complainant_name}
+                                onChange={handleChange}
+                                required
+                                className="input-field"
+                            />
+                            <input
+                                type="text"
+                                name="complaint_type"
+                                placeholder="Complaint Type"
+                                value={complaint.complaint_type}
+                                onChange={handleChange}
+                                required
+                                className="input-field"
+                            />
+                        </div>
+                    </div>
+                    <div className="description-column">
+                        <textarea
+                            name="complaint_description"
+                            placeholder="Describe Complaint"
+                            value={complaint.complaint_description}
                             onChange={handleChange}
                             required
-                            className="input-field"
-                        />
-                        <input
-                            type="text"
-                            name="complaint_type"
-                            placeholder="Complaint Type"
-                            value={complaint.complaint_type}
-                            onChange={handleChange}
-                            required
-                            className="input-field"
+                            className="description-box"
                         />
                     </div>
-                    <textarea
-                        name="complaint_description"
-                        placeholder="Describe Complaint"
-                        value={complaint.complaint_description}
-                        onChange={handleChange}
-                        required
-                        className="description-box"
-                    />
-                </div>
-                <div className="form-buttons">
-                    <button type="submit">Submit</button>
-                    <button type="reset" onClick={() => setComplaint({ complainant_name: '', complaint_type: '', complaint_description: '' })}>
-                        Reset
+                    <div className="form-buttons">
+                        <button type="submit">Submit</button>
+                        <button type="reset" onClick={() => setComplaint({ complainant_name: '', complaint_type: '', complaint_description: '' })}>
+                            Reset
+                        </button>
+                    </div>
+                </form>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Complainant Name</th>
+                            <th>Complaint Type</th>
+                            <th>Complaint Description</th>
+                            <th>Created On</th>
+                            <th>Resolve</th>
+                            <th>Budget</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {currentComplaints.length > 0 ? (
+                            currentComplaints.map((c, index) => (
+                                <tr key={c.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{c.complainant_name}</td>
+                                    <td>{c.complaint_type}</td>
+                                    <td>{c.complaint_description}</td>
+                                    <td>{new Date(c.created_on).toLocaleString()}</td>
+                                    <td>
+                                        {c.resolved ? (
+                                            `Resolved on ${new Date(c.resolved_on).toLocaleString()}`
+                                        ) : (
+                                            <button onClick={() => setResolvedId(c.id)}>Resolve</button>
+                                        )}
+                                    </td>
+                                    <td>{c.budget !== null ? `$${c.budget.toFixed(2)}` : '-'}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="7">No complaints found.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+
+                <div className="pagination">
+                    <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                        Previous
+                    </button>
+                    <span>Page {currentPage}</span>
+                    <button
+                        onClick={() => paginate(currentPage + 1)}
+                        disabled={indexOfLastComplaint >= complaints.length}
+                    >
+                        Next
                     </button>
                 </div>
-            </form>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>SN</th>
-                        <th>Complainant Name</th>
-                        <th>Complaint Type</th>
-                        <th>Complaint Description</th>
-                        <th>Created On</th>
-                        <th>Resolve</th>
-                        <th>Budget</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {complaints.length > 0 ? (
-                        complaints.map((c, index) => (
-                            <tr key={c.id}>
-                                <td>{index + 1}</td>
-                                <td>{c.complainant_name}</td>
-                                <td>{c.complaint_type}</td>
-                                <td>{c.complaint_description}</td>
-                                <td>{new Date(c.created_on).toLocaleString()}</td>
-                                <td>
-                                    {c.resolved ? (
-                                        `Resolved on ${new Date(c.resolved_on).toLocaleString()}`
-                                    ) : (
-                                        <button onClick={() => setResolvedId(c.id)}>Resolve</button>
-                                    )}
-                                </td>
-                                <td>{c.budget !== null ? `$${c.budget.toFixed(2)}` : '-'}</td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="7">No complaints found.</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-
-            {resolvedId && (
-                <div className="popup">
-                    <h2>Resolve Complaint</h2>
-                    <input
-                        type="number"
-                        placeholder="Amount"
-                        value={budget}
-                        onChange={(e) => setBudget(e.target.value)}
-                        className="input-field"
-                    />
-                    <button onClick={() => handleResolve(resolvedId)}>Resolve Complaint</button>
-                    <button onClick={() => setResolvedId(null)}>Cancel</button>
-                </div>
-            )}
+                {resolvedId && (
+                    <div className="popup">
+                        <h2>Resolve Complaint</h2>
+                        <input
+                            type="number"
+                            placeholder="Amount"
+                            value={budget}
+                            onChange={(e) => setBudget(e.target.value)}
+                            className="input-field"
+                        />
+                        <button style = {{backgroundColor: '#007BFF'}}onClick={() => handleResolve(resolvedId)}>Resolve Complaint</button>
+                        <button onClick={() => setResolvedId(null)}>Cancel</button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

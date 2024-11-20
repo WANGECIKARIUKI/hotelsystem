@@ -97,7 +97,7 @@ const AddCategory = () => {
 
                 <div>
                     <button type="submit">Save</button>
-                    <button type="button" onClick={() => navigate('/categories')}>Cancel</button>
+                    <button type="button" onClick={() => navigate('/category')}>Cancel</button>
                 </div>
             </form>
         </div>

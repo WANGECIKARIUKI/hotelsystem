@@ -10,7 +10,7 @@ const Services = () => {
     const [types, setTypes] = useState(['Default', 'Voucher']);
     const [filter, setFilter] = useState({ search: '', category: '', type: '', status: 'all' });
     const [currentPage, setCurrentPage] = useState(1);
-    const [servicesPerPage] = useState(10);  // Number of services per page
+    const [servicesPerPage] = useState(10);
     const navigate = useNavigate();
 
     // Dummy data for services, categories, and departments
@@ -104,41 +104,12 @@ const Services = () => {
         { id: 3, name: 'Dept 3' },
     ];
 
-    // Fetch data from API
-    const fetchServices = async () => {
-        try {
-            const response = await axios.get('/services');
-            setServices(response.data);
-        } catch (error) {
-            console.log("Error fetching services, using dummy data:", error);
-            setServices(dummyServices);  // Use dummy data if API fetch fails
-        }
-    };
 
-    const fetchCategories = async () => {
-        try {
-            const response = await axios.get('/categories');
-            setCategories(response.data);
-        } catch (error) {
-            console.log("Error fetching categories, using dummy data:", error);
-            setCategories(dummyCategories);  // Use dummy data if API fetch fails
-        }
-    };
-
-    const fetchDepartments = async () => {
-        try {
-            const response = await axios.get('/departments');
-            setDepartments(response.data);
-        } catch (error) {
-            console.log("Error fetching departments, using dummy data:", error);
-            setDepartments(dummyDepartments);  // Use dummy data if API fetch fails
-        }
-    };
-
+    // Fetch data functions (using dummy data for now)
     useEffect(() => {
-        fetchServices();
-        fetchCategories();
-        fetchDepartments();
+        setServices(dummyServices);
+        setCategories(dummyCategories);
+        setDepartments(dummyDepartments);
     }, []);
 
     const handleFilterChange = (e) => {
@@ -172,7 +143,7 @@ const Services = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div>
+        <div className="services-container">
             <h1>Services</h1>
             <div className="filters">
                 <input
@@ -221,7 +192,6 @@ const Services = () => {
                             <td>{service.vat}%</td>
                             <td>${service.price}</td>
                             <td>
-                                {/* Custom toggle slider */}
                                 <div
                                     className={`status-toggle ${service.status ? 'active' : 'inactive'}`}
                                     onClick={() => toggleStatus(service.id, service.status)}
@@ -236,8 +206,7 @@ const Services = () => {
                 </tbody>
             </table>
 
-            {/* Pagination */}
-            <div style={{ marginTop: '20px', textAlign: 'end', color: 'blue'}}>
+            <div className="pagination">
                 <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
                     Previous
                 </button>

@@ -61,3 +61,6 @@ def export_inventory_report(hotel_id, format):
         os.remove('temp.csv')
 
     return send_file(filename, as_attachment=True)
+
+if __name__ == '__main__':
+    app.run(debug=True)     

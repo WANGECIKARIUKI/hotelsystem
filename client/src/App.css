@@ -43,6 +43,13 @@
   padding: 20px; /* General padding */
   transition: margin-left 0.3s ease; /* Smooth transition when sidebar opens/closes */
   font-family: sans-serif; /* Font family*/
+  /* Main content area */
+.main-content {
+  flex: 1; /* Fill remaining space */
+  padding: 20px;
+  overflow-y: auto; /* Enable scrolling */
+  background-color: #f4f4f4;
+}
 }
 
 

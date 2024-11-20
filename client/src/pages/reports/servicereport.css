@@ -1,0 +1,123 @@
+/* Container styling */
+.service-report-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* Generate Report button */
+button {
+    font-size: 16px;
+    padding: 10px 15px;
+    margin: 10px 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Button container styling */
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn svg {
+    margin-right: 8px;
+}
+
+/* Button colors */
+.csv-btn {
+    background-color: #28a745;
+}
+
+.csv-btn:hover {
+    background-color: #218838;
+}
+
+.excel-btn {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.excel-btn:hover {
+    background-color: #e0a800;
+}
+
+.pdf-btn {
+    background-color: #dc3545;
+}
+
+.pdf-btn:hover {
+    background-color: #c82333;
+}
+
+.print-btn {
+    background-color: #007bff;
+}
+
+.print-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .download-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

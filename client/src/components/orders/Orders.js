@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './orders.css'; // Make sure to import the CSS
+import './orders.css';
 
 import { FaCheckCircle, FaMoneyBillWave, FaChartLine, FaExclamationCircle, FaTimesCircle } from 'react-icons/fa';
 
@@ -22,7 +22,6 @@ const Orders = () => {
         category: '',
         status: '',
     });
-
 
     useEffect(() => {
         fetchOrders();
@@ -113,16 +112,6 @@ const Orders = () => {
         setFilters((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleDropdownChange = (e, orderId, field) => {
-        const { value } = e.target;
-        setOrders((prevOrders) =>
-            prevOrders.map((order) =>
-                order.id === orderId ? { ...order, [field]: value } : order
-            )
-        );
-       /* console.log(Updated Order ${orderId}:, { [field]: value });*/
-    };
-
     const filteredOrders = orders.filter((order) => {
         return (
             (filters.search === '' || order.guest_name.toLowerCase().includes(filters.search.toLowerCase())) &&
@@ -131,48 +120,51 @@ const Orders = () => {
         );
     });
 
-    const handleConfirmService = (id) => {
-        console.log('Confirmed service with id:', id);
+    const handleDropdownChange = (e, orderId, field) => {
+        const { value } = e.target;
+        setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+                order.id === orderId ? { ...order, [field]: value } : order
+            )
+        );
     };
-
-    const handleDeclineService = (id) => {
-        console.log('Declined service with id:', id);
-    };
-
-    const handleConfirmAll = () => {
-        console.log('Confirmed all services');
-    };
+    
 
     return (
         <div className="orders-container">
             <h1>Orders</h1>
 
             {/* Add Order Button */}
-            <button onClick={() => window.location.href = '/addorder'}>Add Order</button>
+            <section className="add-order-section">
+                <button onClick={() => window.location.href = '/addorder'}>Add Order</button>
+            </section>
 
-            {/* Summary Cards Section with Icons */}
-            <div className="summary-cards">
-                <div className="cards">
-                    <FaCheckCircle style={{ color: 'coral' }} /> Total Orders: {summary.totalOrders}
+            {/* Summary Section */}
+            <section className="summary-section">
+                <h2>Summary</h2>
+                <div className="summary-cards">
+                    <div className="cards">
+                        <FaCheckCircle style={{ color: 'coral' }} /> Total Orders: {summary.totalOrders}
+                    </div>
+                    <div className="cards">
+                        <FaChartLine style={{ color: 'purple' }} /> Completed Orders: {summary.completedOrders}
+                    </div>
+                    <div className="cards">
+                        <FaMoneyBillWave style={{ color: 'yellow' }} /> Revenue: ${summary.revenue}
+                    </div>
+                    <div className="cards">
+                        <FaCheckCircle style={{ color: 'violet' }} /> Paid: ${summary.paid}
+                    </div>
+                    <div className="cards">
+                        <FaTimesCircle style={{ color: 'green' }} /> Lost Amount: ${summary.lostAmount}
+                    </div>
                 </div>
-                <div className="cards">
-                    <FaChartLine style={{ color: 'purple' }} /> Completed Orders: {summary.completedOrders}
-                </div>
-                <div className="cards">
-                    <FaMoneyBillWave style={{ color: 'yellow' }} /> Revenue: ${summary.revenue}
-                </div>
-                <div className="cards">
-                    <FaCheckCircle style={{ color: 'violet' }} /> Paid: ${summary.paid}
-                </div>
-                <div className="cards">
-                    <FaTimesCircle style={{ color: 'green' }} /> Lost Amount: ${summary.lostAmount}
-                </div>
-            </div>
+            </section>
 
             {/* Services to Confirm Section */}
-            <div className="services-to-confirm">
+            <section className="services-section">
                 <h2>Services to Confirm</h2>
-                <button onClick={handleConfirmAll}>Confirm All Services</button>
+                <button onClick={() => console.log('Confirm All Services')}>Confirm All Services</button>
                 <div className="service-cards">
                     {servicesToConfirm.map((service) => (
                         <div key={service.id} className="service-card">
@@ -180,100 +172,106 @@ const Orders = () => {
                             <p>Item: {service.itemName}</p>
                             <p>Order Date: {service.orderDate}</p>
                             <p>Delivery: {service.delivery}</p>
-                            <button onClick={() => handleConfirmService(service.id)}>Confirm</button>
-                            <button style = {{backgroundColor: 'red'}}onClick={() => handleDeclineService(service.id)}>Decline</button>
+                            <button onClick={() => console.log('Confirmed', service.id)}>Confirm</button>
+                            <button style={{ backgroundColor: 'red' }} onClick={() => console.log('Declined', service.id)}>Decline</button>
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
             {/* Filters Section */}
-            <div className="filters-section">
-                <h3>Filter Orders</h3>
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search by guest name..."
-                    value={filters.search}
-                    onChange={handleFilterChange}
-                />
-                <input
-                    type="date"
-                    name="createdOn"
-                    value={filters.createdOn}
-                    onChange={handleFilterChange}
-                />
-                <input
-                    type="date"
-                    name="dueDate"
-                    value={filters.dueDate}
-                    onChange={handleFilterChange}
-                />
-                <select name="guest" value={filters.guest} onChange={handleFilterChange}>
-                    <option value="">All Guests</option>
-                </select>
-                <select name="category" value={filters.category} onChange={handleFilterChange}>
-                    <option value="">All Categories</option>
-                </select>
-                <select name="status" value={filters.status} onChange={handleFilterChange}>
-                    <option value="">All Statuses</option>
-                    <option value="confirmed">Confirmed</option>
-                    <option value="completed">Completed</option>
-                    <option value="cancelled">Cancelled</option>
-                </select>
-            </div>
+            <section className="filters-section">
+                <h2>Filters</h2>
+                <div className="filters">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search by guest name..."
+                        value={filters.search}
+                        onChange={handleFilterChange}
+                    />
+                    <input
+                        type="date"
+                        name="createdOn"
+                        value={filters.createdOn}
+                        onChange={handleFilterChange}
+                    />
+                    <input
+                        type="date"
+                        name="dueDate"
+                        value={filters.dueDate}
+                        onChange={handleFilterChange}
+                    />
+                    <select name="guest" value={filters.guest} onChange={handleFilterChange}>
+                        <option value="">All Guests</option>
+                    </select>
+                    <select name="category" value={filters.category} onChange={handleFilterChange}>
+                        <option value="">All Categories</option>
+                    </select>
+                    <select name="status" value={filters.status} onChange={handleFilterChange}>
+                        <option value="">All Statuses</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </section>
 
-            {/* Orders Table */}
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Time</th>
-                        <th>Guest Name</th>
-                        <th>Service Name</th>
-                        <th>Delivery Status</th>
-                        <th>Amount</th>
-                        <th>Extras</th>
-                        <th>Paid Status</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredOrders.map((order) => (
-                        <tr key={order.id}>
-                            <td>{order.id}</td>
-                            <td>{order.time}</td>
-                            <td>{order.guest_name || 'N/A'}</td>
-                            <td>{order.service_name}</td>
-                            <td>{order.delivery_status}</td>
-                            <td>${order.amount}</td>
-                            <td>{order.extras}</td>
-                            <td>
-                                <select
-                                    value={order.paid_status}
-                                    onChange={(e) => handleDropdownChange(e, order.id, 'paid_status')}
-                                    className="status-dropdown"
-                                >
-                                    <option value="paid">Paid</option>
-                                    <option value="partially_paid">Partially Paid</option>
-                                    <option value="unpaid">Unpaid</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select
-                                    value={order.status}
-                                    onChange={(e) => handleDropdownChange(e, order.id, 'status')}
-                                    className="status-dropdown"
-                                >
-                                    <option value="confirmed">Confirmed</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
-                            </td>
+            {/* Orders Table Section */}
+            <section className="orders-table-section">
+                <h2>Orders Table</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Time</th>
+                            <th>Guest Name</th>
+                            <th>Service Name</th>
+                            <th>Delivery Status</th>
+                            <th>Amount</th>
+                            <th>Extras</th>
+                            <th>Paid Status</th>
+                            <th>Status</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {filteredOrders.map((order) => (
+                            <tr key={order.id}>
+                                <td>{order.id}</td>
+                                <td>{order.time}</td>
+                                <td>{order.guest_name || 'N/A'}</td>
+                                <td>{order.service_name}</td>
+                                <td>{order.delivery_status}</td>
+                                <td>${order.amount}</td>
+                                <td>{order.extras}</td>
+                                <td>
+    <select
+        value={order.paid_status}
+        onChange={(e) => handleDropdownChange(e, order.id, 'paid_status')}
+        className={`status-dropdown paid-status-${order.paid_status}`}
+    >
+        <option value="paid">Paid</option>
+        <option value="partially_paid">Partially Paid</option>
+        <option value="unpaid">Unpaid</option>
+    </select>
+</td>
+<td>
+    <select
+        value={order.status}
+        onChange={(e) => handleDropdownChange(e, order.id, 'status')}
+        className={`status-dropdown order-status-${order.status}`}
+    >
+        <option value="confirmed">Confirmed</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+    </select>
+</td>
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
         </div>
     );
 };

@@ -55,26 +55,22 @@
 
 /* Book button */
 .book-button {
-    background-color: #4CAF50; /* Green */
+    background-color: #007bff; /* Blue */
     color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+    width: 100px; /* Adjusted width */
+    text-align: center;
 }
 
 .book-button:hover {
     background-color: #45a049;
 }
 
-/* Check In button */
+/* Check-in button */
 .checkin-button {
-    background-color: #007bff; /* Blue */
+    background-color: #28a745; /* Green */
     color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+    width: 100px; /* Adjusted width */
+    text-align: center;
 }
 
 .checkin-button:hover {
@@ -83,28 +79,55 @@
 
 /* Check Out button */
 .checkout-button {
-    background-color: #dc3545; /* Red */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+    background-color: #e6465c; /* Yellow */
+    color: black;
+    width: 100px; /* Adjusted width */
+    text-align: center;
 }
 
 .checkout-button:hover {
     background-color: #c82333;
 }
 
-/* Action buttons */
-.view-button, .edit-button, .delete-button {
-    background-color: #f0ad4e; /* Yellow for Action buttons */
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    margin: 0 5px;
+/* Action buttons container */
+.action-buttons {
+    display: flex;
+    gap: 1px; /* Reduce spacing between buttons */
+    justify-content: center; /* Align buttons to the center */
+    align-items: center;
 }
+
+/* Individual action buttons */
+.action-buttons button {
+    background-color: #6c757d; /* Gray */
+    color: white;
+    width: 30px; /* Reduce button width */
+    height: 30px; /* Reduce button height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none; /* Remove default borders */
+    border-radius: 4px; /* Rounded corners for modern look */
+    font-size: 12px; /* Smaller font size for icons */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for action buttons */
+.action-buttons button:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+    transform: scale(1.1); /* Slight enlargement for hover feedback */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .action-buttons button {
+        width: 25px; /* Further reduce size for small screens */
+        height: 25px;
+        font-size: 10px;
+    }
+}
+
 
 .view-button:hover {
     background-color: #ec971f;

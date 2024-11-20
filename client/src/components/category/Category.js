@@ -59,6 +59,24 @@ const Category = () => {
                     vat: 8,
                 },
                 {
+                    id: 2,
+                    name: 'Home Services',
+                    image_url: 'https://via.placeholder.com/50',
+                    subcategory_count: 8,
+                    service_count: 20,
+                    order_count: 50,
+                    vat: 10,
+                },
+                {
+                    id: 3,
+                    name: 'Health & Wellness',
+                    image_url: 'https://via.placeholder.com/50',
+                    subcategory_count: 5,
+                    service_count: 15,
+                    order_count: 30,
+                    vat: 8,
+                },
+                {
                     id: 1,
                     name: 'Electronics',
                     image_url: 'https://via.placeholder.com/50',
@@ -317,7 +335,7 @@ const Category = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div>
+        <div className="container">
             <h1>Service Categories</h1>
             <div className="toolbar">
                 <input
@@ -325,7 +343,6 @@ const Category = () => {
                     placeholder="Search categories..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    style = {{}}
                 />
                 <button onClick={() => window.location.href = '/addcategory'}>Add Category</button>
             </div>

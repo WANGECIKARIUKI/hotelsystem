@@ -1,6 +1,14 @@
-.manage-staff {
+/* Container class for general layout */
+.container {
+    width: 100%;
+    max-width: 1200px;  /* Optional: limit the width */
+    margin: 0 auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
+}
+
+.manage-staff {
+    margin-top: 20px;
+    font-family: sans-serif;
 }
 
 .manage-staff h1 {
@@ -24,6 +32,7 @@
 
 .manage-staff button {
     margin: 5px;
+    justify-content: end;
 }
 
 .modal {
@@ -46,6 +55,7 @@
 
 .search-container {
     margin: 10px 0;
+    width: 20%;
 }
 
 .pagination {
@@ -54,6 +64,7 @@
 
 .show-entries {
     margin: 10px 0;
+    width: 10%;
 }
 
 .action-icon {
@@ -82,6 +93,105 @@
     font-size: 16px;
     margin-top: 10px;
     border-radius: 5px;
+}
+
+/* General button styling */
+button {
+    padding: 10px 15px; /* Add padding for better click area */
+    font-size: 14px; /* Adjust font size for readability */
+    border-radius: 4px; /* Rounded corners for a modern look */
+    border: none; /* Remove default border */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Specific button adjustments */
+button:not(.action-icon) {
+    min-width: 100px; /* Set a minimum width for buttons */
+    text-align: center;
+}
+
+/* Change Shift button */
+button.change-shift {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+/* Pagination buttons */
+.pagination button {
+    background-color: #007bff; /* Blue */
+    color: white;
+    margin: 0 5px;
+    border-radius: 4px;
+    min-width: 50px; /* Wider pagination buttons */
+    justify-content: end;
+    text-align: center;
+}
+
+/* Edit popup buttons */
+.popup-content button {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* Hover effects */
+button:hover {
+    filter: brightness(90%);
+}
+
+.action-icon:hover {
+    color: #0056b3; /* Darker blue for hover effect */
+}
+
+/* Container for action buttons */
+.action-buttons {
+    display: flex;
+    gap: 1px; /* Reduce spacing between buttons */
+    justify-content: center; /* Align buttons to the center */
+    align-items: center;
+}
+
+/* Individual action icons */
+.action-icon {
+    /*background-color: #6c757d; /* Gray */
+    color: black;
+    width: 30px; /* Reduce button width */
+    height: 30px; /* Reduce button height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none; /* Remove default borders */
+    border-radius: 4px; /* Rounded corners for modern look */
+    font-size: 12px; /* Smaller font size for icons */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effects for action icons */
+.action-icon:hover {
+    color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Optional: Set equal width for action buttons */
+.action-buttons .action-icon {
+    flex: 1 0 auto; /* Ensure even spacing */
+    text-align: center;
+}
+
+/* Adjust for mobile screens */
+@media (max-width: 768px) {
+    .action-buttons {
+        gap: 5px; /* Reduce spacing for smaller screens */
+    }
+
+    .action-icon {
+        font-size: 1.2em; /* Slightly smaller icons */
+    }
 }
 
 

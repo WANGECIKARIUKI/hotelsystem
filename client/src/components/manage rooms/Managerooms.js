@@ -142,7 +142,7 @@ const Managerooms = () => {
                                     {!room.booking_status && (
                                         <button 
                                             className="book-button"
-                                            onClick={() => navigate("/reservations")}
+                                            onClick={() => navigate("/reservation")}
                                         >
                                             Book
                                         </button>

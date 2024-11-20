@@ -147,140 +147,182 @@ const AddOrder = () => {
                 </section>
 
                 {/* Guest Search Section */}
-                {orderType === 'search' && (
-                    <section className="guest-search-section">
-                        <h3>Search Guest</h3>
-                        <div className="input-row">
-                            <label>Search Guest:</label>
-                            <input
-                                type="text"
-                                value={guestSearch}
-                                onChange={(e) => setGuestSearch(e.target.value)}
-                                placeholder="Enter guest name or email"
-                            />
-                            <button type="button" onClick={handleSearchGuest}>Search</button>
-                        </div>
+            {orderType === 'search' && (
+               <section className="guest-search-section">
+                 <h3>Search Guest</h3>
+                <div className="input-row">
+                  <label>Search Guest:</label>
+                         <input
+                type="text"
+                value={guestSearch}
+                onChange={(e) => setGuestSearch(e.target.value)}
+                placeholder="Enter guest name or email"
+            />
+            <button type="button" onClick={handleSearchGuest}>Search</button>
+        </div>
 
-                        {guest && (
-                            <div>
-                                <h4>Guest Details</h4>
-                                <p>Name: {guest.name}</p>
-                                <p>Email: {guest.email}</p>
-                            </div>
-                        )}
+        {guest && (
+            <div>
+                <h4>Guest Details</h4>
+                <p>Name: {guest.name}</p>
+                <p>Email: {guest.email}</p>
+            </div>
+        )}
 
-                        <div className="input-row">
-                            <label>Delivery To:</label>
-                            <select>
-                                <option value="room">Room</option>
-                                <option value="without">Without Delivery</option>
-                            </select>
+        <div className="input-row">
+            <label>Delivery To:</label>
+            <select>
+                <option value="room">Room</option>
+                <option value="without">Without Delivery</option>
+            </select>
 
-                            <label>Delivery Date & Time:</label>
-                            <input type="datetime-local" />
-                        </div>
-                    </section>
-                )}
+            <label>Delivery Date & Time:</label>
+            <input type="datetime-local" />
+        </div>
 
-                {/* Create Guest Section */}
-                {orderType === 'create' && (
-                    <section className="create-guest-section">
-                        <h3>Create New Guest</h3>
-                        <div className="input-row">
-                            <label>First Name:</label>
-                            <input type="text" />
-                            <label>Last Name:</label>
-                            <input type="text" />
-                        </div>
-                        <div className="input-row">
-                            <label>Phone Number:</label>
-                            <input type="text" />
-                            <label>Email:</label>
-                            <input type="email" />
-                        </div>
-                        <div className="input-row">
-                            <label>ID Number:</label>
-                            <input type="text" />
-                            <label>ID Type:</label>
-                            <select>
-                                <option value="passport">Passport</option>
-                                <option value="id_card">ID Card</option>
-                            </select>
-                        </div>
-                        <div className="input-row">
-                            <label>Date of Birth:</label>
-                            <input type="date" />
-                            <label>Country:</label>
-                            <input type="text" />
-                        </div>
-                        <div className="input-row">
-                            <label>Zipcode:</label>
-                            <input type="text" />
-                            <label>Address:</label>
-                            <input type="text" />
-                        </div>
-                        <div className="input-row">
-                            <label>Language:</label>
-                            <input type="text" />
-                            <label>Delivery To:</label>
-                            <select>
-                                <option value="room">Room</option>
-                                <option value="without">Without Delivery</option>
-                            </select>
-                        </div>
-                        <div className="input-row">
-                            <label>Delivery Date & Time:</label>
-                            <input type="datetime-local" />
-                            <label>Child:</label>
-                            <input type="checkbox" />
-                        </div>
-                    </section>
-                )}
+        {/* Search Service */}
+        <section className="search-service-section">
+            <h3>Search Service</h3>
+            <div className="input-row">
+                <label>Search Service:</label>
+                <input
+                    type="text"
+                    value={itemSearch}
+                    onChange={(e) => setItemSearch(e.target.value)}
+                    placeholder="Search service (e.g., VIP Services, Room Services)"
+                />
+            </div>
 
-                {/* Without Guest Section */}
-                {orderType === 'without' && (
-                    <section className="without-guest-section">
-                        <h3>Search Service</h3>
-                        <div className="input-row">
-                            <label>Search Service:</label>
-                            <input
-                                type="text"
-                                value={itemSearch}
-                                onChange={(e) => setItemSearch(e.target.value)}
-                                placeholder="Search service (e.g., VIP Services, Room Services)"
-                            />
+            {/* Item Search Result */}
+            <div className="items-search-results">
+                {allItems
+                    .filter(item => item.name.toLowerCase().includes(itemSearch.toLowerCase()))
+                    .map(item => (
+                        <div key={item.id} className="item-card">
+                            <img src={item.imageUrl} alt={item.name} />
+                            <h4>{item.name}</h4>
+                            <button onClick={() => handleAddItem(item)}>Add</button>
                         </div>
+                    ))}
+            </div>
 
-                        {/* Item Search Result */}
-                        <div className="items-search-results">
-                            {allItems
-                                .filter(item => item.name.toLowerCase().includes(itemSearch.toLowerCase()))
-                                .map(item => (
-                                    <div key={item.id} className="item-card">
-                                        <img src={item.imageUrl} alt={item.name} />
-                                        <h4>{item.name}</h4>
-                                        <button onClick={() => handleAddItem(item)}>Add</button>
-                                    </div>
-                                ))}
-                        </div>
+            {/* Items List */}
+            <div className="items-list">
+                {items.map((item, index) => (
+                    <div key={index} className="item-list-card">
+                        <span>{item.name}</span>
+                        <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
+                        <span>{item.quantity}</span>
+                        <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
+                        <span>${item.price}</span>
+                        <span>Subtotal: ${item.subtotal}</span>
+                        <button onClick={() => setItems(items.filter(i => i.id !== item.id))}>Delete</button>
+                        <button onClick={() => setExtras(item.extras)}>Add Extras</button>
+                    </div>
+                ))}
+            </div>
+        </section>
+    </section>
+)}
 
-                        {/* Items List */}
-                        <div className="items-list">
-                            {items.map((item, index) => (
-                                <div key={index} className="item-list-card">
-                                    <span>{item.name}</span>
-                                    <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
-                                    <span>{item.quantity}</span>
-                                    <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
-                                    <span>${item.price}</span>
-                                    <span>Subtotal: ${item.subtotal}</span>
-                                    <button onClick={() => setItems(items.filter(i => i.id !== item.id))}>Delete</button>
-                                    <button onClick={() => setExtras(item.extras)}>Add Extras</button>
-                                </div>
-                            ))}
+{/* Create Guest Section */}
+{orderType === 'create' && (
+    <section className="create-guest-section">
+        <h3>Create New Guest</h3>
+        <div className="input-row">
+            <label>First Name:</label>
+            <input type="text" />
+            <label>Last Name:</label>
+            <input type="text" />
+        </div>
+        <div className="input-row">
+            <label>Phone Number:</label>
+            <input type="text" />
+            <label>Email:</label>
+            <input type="email" />
+        </div>
+        <div className="input-row">
+            <label>ID Number:</label>
+            <input type="text" />
+            <label>ID Type:</label>
+            <select>
+                <option value="passport">Passport</option>
+                <option value="id_card">ID Card</option>
+            </select>
+        </div>
+        <div className="input-row">
+            <label>Date of Birth:</label>
+            <input type="date" />
+            <label>Country:</label>
+            <input type="text" />
+        </div>
+        <div className="input-row">
+            <label>Zipcode:</label>
+            <input type="text" />
+            <label>Address:</label>
+            <input type="text" />
+        </div>
+        <div className="input-row">
+            <label>Language:</label>
+            <input type="text" />
+            <label>Delivery To:</label>
+            <select>
+                <option value="room">Room</option>
+                <option value="without">Without Delivery</option>
+            </select>
+        </div>
+        <div className="input-row">
+            <label>Delivery Date & Time:</label>
+            <input type="datetime-local" />
+            <label>Child:</label>
+            <input type="checkbox" />
+        </div>
+
+        {/* Search Service */}
+        <section className="search-service-section">
+            <h3>Search Service</h3>
+            <div className="input-row">
+                <label>Search Service:</label>
+                <input
+                    type="text"
+                    value={itemSearch}
+                    onChange={(e) => setItemSearch(e.target.value)}
+                    placeholder="Search service (e.g., VIP Services, Room Services)"
+                />
+            </div>
+
+            {/* Item Search Result */}
+            <div className="items-search-results">
+                {allItems
+                    .filter(item => item.name.toLowerCase().includes(itemSearch.toLowerCase()))
+                    .map(item => (
+                        <div key={item.id} className="item-card">
+                            <img src={item.imageUrl} alt={item.name} />
+                            <h4>{item.name}</h4>
+                            <button onClick={() => handleAddItem(item)}>Add</button>
                         </div>
-                    </section>
-                )}
+                    ))}
+            </div>
+
+            {/* Items List */}
+            <div className="items-list">
+                {items.map((item, index) => (
+                    <div key={index} className="item-list-card">
+                        <span>{item.name}</span>
+                        <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
+                        <span>{item.quantity}</span>
+                        <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
+                        <span>${item.price}</span>
+                        <span>Subtotal: ${item.subtotal}</span>
+                        <button onClick={() => setItems(items.filter(i => i.id !== item.id))}>Delete</button>
+                        <button onClick={() => setExtras(item.extras)}>Add Extras</button>
+                    </div>
+                ))}
+            </div>
+        </section>
+    </section>
+)}
+
 
                 {/* Order Summary */}
                 <section className="order-summary-section">

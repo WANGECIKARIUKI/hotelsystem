@@ -121,121 +121,133 @@ const Managestaff = ({ hotelId }) => {
     };
 
     return (
-        <div className="manage-staff">
-            <h1>Manage Staff</h1>
-            <button onClick={() => navigate('/newstaff')}>Add Employee</button>
-            <div className="show-entries">
-                <span>Show </span>
-                <select value={staffPerPage} onChange={(e) => {
-                    setStaffPerPage(Number(e.target.value));
-                    setCurrentPage(1); // Reset to first page on changing entries
-                }}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
-                    <option value={20}>20</option>
-                </select>
-                <span> entries</span>
-            </div>
-            <div className="search-container">
-                <input
-                    type="text"
-                    placeholder="Search by name"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sr No</th>
-                        <th>Employee Name</th>
-                        <th>Phone Number</th>
-                        <th>Address</th>
-                        <th>Staff Role</th>
-                        <th>Shift</th>
-                        <th>Joining Date</th>
-                        <th>Next of Kin Name</th>
-                        <th>Next of Kin Phone</th>
-                        <th>Salary</th>
-                        <th>Change Shift</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentStaff.map((staff, index) => (
-                        <tr key={staff.id}>
-                            <td>{index + 1 + indexOfFirstStaff}</td>
-                            <td>{staff.name}</td>
-                            <td>{staff.phone_number}</td>
-                            <td>{staff.address}</td>
-                            <td>{staff.role}</td>
-                            <td>{renderShift(staff.shift)}</td>
-                            <td>{new Date(staff.joining_date).toLocaleDateString()}</td>
-                            <td>{staff.next_of_kin_name}</td>
-                            <td>{staff.next_of_kin_phone}</td>
-                            <td>{staff.salary}</td>
-                            <td>
-                                <select onChange={(e) => setNewShift(e.target.value)} defaultValue="">
-                                    <option value="" disabled>Select Shift</option>
-                                    {[...Array(24)].map((_, i) => (
-                                        <option key={i} value={`${i}:00`}>{renderShift(`${i}:00`)}</option>
-                                    ))}
-                                </select>
-                                <button onClick={() => handleChangeShift(staff)}>Change</button>
-                            </td>
-                            <td>
-                                <FaEye className="action-icon" onClick={() => handleViewDetails(staff)} />
-                                <FaEdit className="action-icon" onClick={() => {
-                                    setSelectedStaff(staff);
-                                    setStaffDetails({
-                                        name: staff.name,
-                                        phone_number: staff.phone_number,
-                                        address: staff.address,
-                                        role: staff.role,
-                                        joining_date: staff.joining_date,
-                                        next_of_kin_name: staff.next_of_kin_name,
-                                        next_of_kin_phone: staff.next_of_kin_phone,
-                                        salary: staff.salary
-                                    });
-                                    setShowEditPopup(true);
-                                }} />
-                                <FaTrash className="action-icon" onClick={() => handleDelete(staff.id)} />
-                            </td>
+        <div className="container">
+            <div className="manage-staff">
+                <h1>Manage Staff</h1>
+                <button style = {{justifyContent: 'end', textAlign: 'end'}} onClick={() => navigate('/newstaff')}>Add Employee</button>
+                <div className="show-entries">
+                    <span>Show entries</span>
+                    <select value={staffPerPage} onChange={(e) => {
+                        setStaffPerPage(Number(e.target.value));
+                        setCurrentPage(1); // Reset to first page on changing entries
+                    }}>
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={15}>15</option>
+                        <option value={20}>20</option>
+                    </select>
+                </div>
+                <div className="search-container">
+                    <input
+                        type="text"
+                        placeholder="Search by name"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Employee Name</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Staff Role</th>
+                            <th>Shift</th>
+                            <th>Joining Date</th>
+                            <th>Next of Kin Name</th>
+                            <th>Next of Kin Phone</th>
+                            <th>Salary</th>
+                            <th>Change Shift</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="pagination">
-                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-                    Previous
-                </button>
-                <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastStaff >= filteredStaff.length}>
-                    Next
-                </button>
-            </div>
-            {/* Edit Popup */}
-            <div className="popup" style={{ display: showEditPopup ? 'block' : 'none' }}>
-                <div className="popup-content">
-                    <h2>Edit Staff</h2>
-                    <label>Name:</label>
-                    <input type="text" value={staffDetails.name} onChange={(e) => setStaffDetails({ ...staffDetails, name: e.target.value })} />
-                    <label>Phone:</label>
-                    <input type="text" value={staffDetails.phone_number} onChange={(e) => setStaffDetails({ ...staffDetails, phone_number: e.target.value })} />
-                    <label>Address:</label>
-                    <input type="text" value={staffDetails.address} onChange={(e) => setStaffDetails({ ...staffDetails, address: e.target.value })} />
-                    <label>Role:</label>
-                    <input type="text" value={staffDetails.role} onChange={(e) => setStaffDetails({ ...staffDetails, role: e.target.value })} />
-                    <label>Joining Date:</label>
-                    <input type="date" value={staffDetails.joining_date.split('T')[0]} onChange={(e) => setStaffDetails({ ...staffDetails, joining_date: e.target.value })} />
-                    <label>Next of Kin Name:</label>
-                    <input type="text" value={staffDetails.next_of_kin_name} onChange={(e) => setStaffDetails({ ...staffDetails, next_of_kin_name: e.target.value })} />
-                    <label>Next of Kin Phone:</label>
-                    <input type="text" value={staffDetails.next_of_kin_phone} onChange={(e) => setStaffDetails({ ...staffDetails, next_of_kin_phone: e.target.value })} />
-                    <label>Salary:</label>
-                    <input type="text" value={staffDetails.salary} onChange={(e) => setStaffDetails({ ...staffDetails, salary: e.target.value })} />
-                    <button onClick={handleEditStaff}>Update</button>
-                    <button onClick={() => setShowEditPopup(false)}>Cancel</button>
+                    </thead>
+                    <tbody>
+                        {currentStaff.map((staff, index) => (
+                            <tr key={staff.id}>
+                                <td>{index + 1 + indexOfFirstStaff}</td>
+                                <td>{staff.name}</td>
+                                <td>{staff.phone_number}</td>
+                                <td>{staff.address}</td>
+                                <td>{staff.role}</td>
+                                <td>{renderShift(staff.shift)}</td>
+                                <td>{new Date(staff.joining_date).toLocaleDateString()}</td>
+                                <td>{staff.next_of_kin_name}</td>
+                                <td>{staff.next_of_kin_phone}</td>
+                                <td>{staff.salary}</td>
+                                <td>
+                                    <select onChange={(e) => setNewShift(e.target.value)} defaultValue="">
+                                        <option value="" disabled>Select Shift</option>
+                                        {[...Array(24)].map((_, i) => (
+                                            <option key={i} value={`${i}:00`}>{renderShift(`${i}:00`)}</option>
+                                        ))}
+                                    </select>
+                                    <button onClick={() => handleChangeShift(staff)}>Change</button>
+                                </td>
+                                <td>
+    <div className="action-buttons">
+        <FaEye
+            className="action-icon"
+            onClick={() => handleViewDetails(staff)}
+        />
+        <FaEdit
+            className="action-icon"
+            onClick={() => {
+                setSelectedStaff(staff);
+                setStaffDetails({
+                    name: staff.name,
+                    phone_number: staff.phone_number,
+                    address: staff.address,
+                    role: staff.role,
+                    joining_date: staff.joining_date,
+                    next_of_kin_name: staff.next_of_kin_name,
+                    next_of_kin_phone: staff.next_of_kin_phone,
+                    salary: staff.salary,
+                });
+                setShowEditPopup(true);
+            }}
+        />
+        <FaTrash
+            className="action-icon"
+            onClick={() => handleDelete(staff.id)}
+        />
+    </div>
+</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div className="pagination">
+                    <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                        Previous
+                    </button>
+                    <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastStaff >= filteredStaff.length}>
+                        Next
+                    </button>
+                </div>
+                {/* Edit Popup */}
+                <div className="popup" style={{ display: showEditPopup ? 'block' : 'none' }}>
+                    <div className="popup-content">
+                        <h2>Edit Staff</h2>
+                        <label>Name:</label>
+                        <input type="text" value={staffDetails.name} onChange={(e) => setStaffDetails({ ...staffDetails, name: e.target.value })} />
+                        <label>Phone:</label>
+                        <input type="text" value={staffDetails.phone_number} onChange={(e) => setStaffDetails({ ...staffDetails, phone_number: e.target.value })} />
+                        <label>Address:</label>
+                        <input type="text" value={staffDetails.address} onChange={(e) => setStaffDetails({ ...staffDetails, address: e.target.value })} />
+                        <label>Role:</label>
+                        <input type="text" value={staffDetails.role} onChange={(e) => setStaffDetails({ ...staffDetails, role: e.target.value })} />
+                        <label>Joining Date:</label>
+                        <input type="date" value={staffDetails.joining_date.split('T')[0]} onChange={(e) => setStaffDetails({ ...staffDetails, joining_date: e.target.value })} />
+                        <label>Next of Kin Name:</label>
+                        <input type="text" value={staffDetails.next_of_kin_name} onChange={(e) => setStaffDetails({ ...staffDetails, next_of_kin_name: e.target.value })} />
+                        <label>Next of Kin Phone:</label>
+                        <input type="text" value={staffDetails.next_of_kin_phone} onChange={(e) => setStaffDetails({ ...staffDetails, next_of_kin_phone: e.target.value })} />
+                        <label>Salary:</label>
+                        <input type="text" value={staffDetails.salary} onChange={(e) => setStaffDetails({ ...staffDetails, salary: e.target.value })} />
+                        <button onClick={handleEditStaff}>Update</button>
+                        <button onClick={() => setShowEditPopup(false)}>Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
