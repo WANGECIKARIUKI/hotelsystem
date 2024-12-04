@@ -1,0 +1,75 @@
+.under-construction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f3f3f3;
+    text-align: center;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .construction-message h1 {
+    color: #ff6b6b;
+    font-size: 2.5rem;
+  }
+  
+  .construction-message p {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .logo {
+    width: 150px;
+    margin-top: 20px;
+  }
+  
+  .timer {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .countdown {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  
+  .countdown span {
+    padding: 5px 15px;
+    background-color: #ff6b6b;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .animation {
+    margin-top: 40px;
+    position: relative;
+  }
+  
+  .cone-container {
+    position: relative;
+    animation: bounce 1s ease-in-out infinite;
+  }
+  
+  .cone {
+    width: 50px;
+    height: 50px;
+    background-color: orange;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -25px;
+  }
+  
+  @keyframes bounce {
+    0% { top: 0; }
+    50% { top: 50px; }
+    100% { top: 0; }
+  }
+  

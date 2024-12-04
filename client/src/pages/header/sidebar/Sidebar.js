@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ onLogout }) => {
   const [isReportsOpen, setIsReportsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // For hamburger menu
 
@@ -22,15 +22,9 @@ const Sidebar = () => {
 
       <ul className="sidebar-list">
         <li className="sidebar-item">
-          <Link to="/" className="sidebar-link">
+          <Link to="/dashboard" className="sidebar-link">
             <i className="fas fa-home sidebar-icon home-icon"></i>
             <span className="sidebar-text">Dashboard</span>
-          </Link>
-        </li>
-        <li className="sidebar-item">
-          <Link to="/profile" className="sidebar-link">
-            <i className="fas fa-user sidebar-icon profile-icon"></i>
-            <span className="sidebar-text">Profile</span>
           </Link>
         </li>
         <li className="sidebar-item">
@@ -82,11 +76,25 @@ const Sidebar = () => {
           </Link>
         </li>
         <li className="sidebar-item">
+  <Link to="/createcategory" className="sidebar-link">
+    <i className="fas fa-tags sidebar-icon category-icon"></i> {/* Add Categories Icon */}
+    <span className="sidebar-text">Add Categories</span>
+  </Link>
+</li>
+
+        <li className="sidebar-item">
           <Link to="/orders" className="sidebar-link">
             <i className="fas fa-box sidebar-icon orders-icon"></i>
             <span className="sidebar-text">Orders</span>
           </Link>
         </li>
+        <li className="sidebar-item">
+  <Link to="/createorder" className="sidebar-link">
+  <i className="fas fa-clipboard-list sidebar-icon"></i>
+    <span className="sidebar-text">Add Orders</span>
+  </Link>
+</li>
+
         <li className="sidebar-item">
           <Link to="/inventory" className="sidebar-link">
             <i className="fas fa-archive sidebar-icon inventory-icon"></i>
@@ -94,7 +102,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li className="sidebar-item">
-          <Link to="/invoices" className="sidebar-link">
+          <Link to="/invoicelist" className="sidebar-link">
             <i className="fas fa-file-invoice sidebar-icon invoices-icon"></i>
             <span className="sidebar-text">Invoice Generation</span>
           </Link>
@@ -125,19 +133,32 @@ const Sidebar = () => {
         </li>
         {isReportsOpen && (
           <ul className="dropdown">
-            <li className="dropdown-item">
-              <Link to="/inventoryreport" className="dropdown-link">Inventory Report</Link>
-            </li>
-            <li className="dropdown-item">
-              <Link to="/orderreport" className="dropdown-link">Order Report</Link>
-            </li>
-            <li className="dropdown-item">
-              <Link to="/servicereport" className="dropdown-link">Service Report</Link>
-            </li>
-            <li className="dropdown-item">
-              <Link to="/guestreport" className="dropdown-link">Guest Report</Link>
-            </li>
-          </ul>
+          <li className="dropdown-item">
+            <Link to="/inventoryreport" className="dropdown-link">
+              <i className="fas fa-box dropdown-icon"></i> {/* Inventory Report Icon */}
+              Inventory Report
+            </Link>
+          </li>
+          <li className="dropdown-item">
+            <Link to="/orderreport" className="dropdown-link">
+              <i className="fas fa-file-alt dropdown-icon"></i> {/* Order Report Icon */}
+              Order Report
+            </Link>
+          </li>
+          <li className="dropdown-item">
+            <Link to="/servicereport" className="dropdown-link">
+              <i className="fas fa-concierge-bell dropdown-icon"></i> {/* Service Report Icon */}
+              Service Report
+            </Link>
+          </li>
+          <li className="dropdown-item">
+            <Link to="/guestreport" className="dropdown-link">
+              <i className="fas fa-users dropdown-icon"></i> {/* Guest Report Icon */}
+              Guest Report
+            </Link>
+          </li>
+        </ul>
+        
         )}
         <li className="sidebar-item">
           <Link to="/settings" className="sidebar-link">
@@ -145,7 +166,13 @@ const Sidebar = () => {
             <span className="sidebar-text">Settings</span>
           </Link>
         </li>
-        <li className="sidebar-item">
+        <li className="sidebar-item" style={{ cursor: 'pointer' }}>
+  <Link to="/changepassword" className="sidebar-link">
+    <i className="fas fa-key sidebar-icon"></i>
+    <span className="sidebar-text">Change Password</span>
+  </Link>
+</li>
+        <li className="sidebar-item" onClick={onLogout} style={{ cursor: 'pointer', color: 'red' }}>
           <Link to="/logout" className="sidebar-link">
             <i className="fas fa-sign-out-alt sidebar-icon logout-icon"></i>
             <span className="sidebar-text">Logout</span>

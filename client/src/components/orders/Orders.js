@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './orders.css';
 
 import { FaCheckCircle, FaMoneyBillWave, FaChartLine, FaExclamationCircle, FaTimesCircle } from 'react-icons/fa';
@@ -129,15 +130,16 @@ const Orders = () => {
         );
     };
     
+    const navigate = useNavigate(); // Initialize useNavigate
 
     return (
         <div className="orders-container">
             <h1>Orders</h1>
 
-            {/* Add Order Button */}
+            {/* Add Order Button 
             <section className="add-order-section">
-                <button onClick={() => window.location.href = '/addorder'}>Add Order</button>
-            </section>
+                <button onClick={() => navigate('/createorder')}>Add Order</button>
+            </section> */}
 
             {/* Summary Section */}
             <section className="summary-section">

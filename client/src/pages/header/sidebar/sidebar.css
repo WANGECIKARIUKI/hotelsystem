@@ -12,6 +12,22 @@
   z-index: 100; /* Ensure the sidebar is above other content */
 }
 
+ul.dropdown {
+  list-style-type: none; /* Removes the default bullet points */
+  padding: 10px;            /* Removes the default padding */
+  margin: 20px;             /* Removes the default margin */
+}
+
+ul.dropdown .dropdown-link {
+  color: white;          /* Makes the text color black */
+  text-decoration: none; /* Removes the default underline */
+}
+
+ul.dropdown .dropdown-link:hover {
+  color: #e96c6c;           /* Optionally, change color on hover */
+}
+
+
 .sidebar-closed {
   width: 50px; /* Minimal width to show icons */
 }

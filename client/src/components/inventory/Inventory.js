@@ -111,17 +111,20 @@ function Inventory() {
             placeholder="Item Name"
             value={form.item_name}
             onChange={(e) => setForm({ ...form, item_name: e.target.value })}
+            required
           />
           <input
             type="number"
             placeholder="Quantity"
             value={form.quantity}
             onChange={(e) => setForm({ ...form, quantity: e.target.value })}
+            required
           />
           <textarea
             placeholder="Description"
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
+            required
           ></textarea>
           <button type="submit">Add Item</button>
         </form>

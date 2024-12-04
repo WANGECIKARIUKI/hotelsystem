@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './category.css';
 
 const Category = () => {
@@ -334,6 +335,8 @@ const Category = () => {
     // Handle page change
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    const navigate = useNavigate();
+
     return (
         <div className="container">
             <h1>Service Categories</h1>
@@ -344,7 +347,7 @@ const Category = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <button onClick={() => window.location.href = '/addcategory'}>Add Category</button>
+                 <button onClick={() => navigate('/createcategory')}>Add Category</button>
             </div>
             <table>
                 <thead>

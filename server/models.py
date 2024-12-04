@@ -420,3 +420,22 @@ class Revenue(db.Model):
     hotel_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
     amount = db.Column(db.Float, nullable=False)
+
+#login 
+
+class Staff(db.Model):
+    __tablename__ = 'staff'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(10), nullable=False)  # 'admin' or 'employee'
+    hotel_id = db.Column(db.Integer, nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'role': self.role,
+            'hotel_id': self.hotel_id
+        }
+
