@@ -1,4 +1,4 @@
-# routes.py
+"""# routes.py
 from flask import Flask, request, jsonify
 from models import db, Guest, Service, Payment
 import uuid
@@ -56,4 +56,4 @@ def get_guest(guest_id):
         },
         "services": [{"description": s.description, "amount": s.amount} for s in services],
         "payments": [{"amount_due": p.amount_due, "amount_paid": p.amount_paid, "pending_amount": p.pending_amount} for p in payments]
-    })
+    }) """

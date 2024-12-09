@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+"""from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector # type: ignore
 
@@ -73,4 +73,4 @@ def update_item(item_id):
     return jsonify({'message': 'Item updated successfully!'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) """

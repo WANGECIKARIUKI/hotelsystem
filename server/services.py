@@ -1,4 +1,4 @@
-import os
+"""import os
 from flask import Flask, request, jsonify
 from models import db, Service, Category, Order
 from werkzeug.utils import secure_filename
@@ -10,7 +10,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
-    """Check if the file has an allowed extension."""
+    Check if the file has an allowed extension.
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/services', methods=['POST'])
@@ -104,4 +104,4 @@ def manage_orders():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) """

@@ -80,30 +80,29 @@ class Room(db.Model):
     room_number = db.Column(db.String(10), nullable=False, unique=True)
     price = db.Column(db.Float, nullable=False)
     is_available = db.Column(db.Boolean, default=True)
+    booking_status = db.Column(db.Boolean, default=False)
     reservations = db.relationship('Reservation', backref='room', lazy=True)
 
     def __repr__(self):
         return f'<Room {self.room_number} of {self.hotel_id}>'
 
-
 class Reservation(db.Model):
-    __tablename__ = 'reservations'
     id = db.Column(db.Integer, primary_key=True)
-    hotel_id = db.Column(db.Integer, db.ForeignKey('hotels.id'), nullable=False)
-    room_id = db.Column(db.Integer, db.ForeignKey('rooms.id'), nullable=False)
-    check_in_date = db.Column(db.DateTime, nullable=False)
-    check_out_date = db.Column(db.DateTime, nullable=False)
+    hotel_id = db.Column(db.Integer, nullable=False)
+    room_type = db.Column(db.String(20), nullable=False)
+    room_number = db.Column(db.String(10), nullable=False)
+    check_in_date = db.Column(db.Date, nullable=False)
+    check_out_date = db.Column(db.Date, nullable=False)
     no_of_rooms = db.Column(db.Integer, nullable=False)
-    no_of_children = db.Column(db.Integer, nullable=True)
     no_of_adults = db.Column(db.Integer, nullable=False)
+    no_of_children = db.Column(db.Integer, nullable=False)
     amount = db.Column(db.Float, nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     home_address = db.Column(db.String(200), nullable=False)
-    telephone = db.Column(db.String(15), nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
+    telephone = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.String(20), default="Reserved")  # e.g., "Reserved", "Checked Out"
     def __repr__(self):
         return f'<Reservation {self.id} for {self.first_name} {self.last_name}>'
 
@@ -150,21 +149,28 @@ class Complaint(db.Model):
 
 # Employee and Next of Kin Management
 class Staff(db.Model):
+
     __tablename__ = 'staff'
+
     id = db.Column(db.Integer, primary_key=True)
-    hotel_id = db.Column(db.Integer, db.ForeignKey('hotels.id'), nullable=False)
-    first_name = db.Column(db.String(50), nullable=False)
-    middle_name = db.Column(db.String(50), nullable=True)
-    last_name = db.Column(db.String(50), nullable=False)
-    id_card_type = db.Column(db.String(20), nullable=False)
-    id_card_number = db.Column(db.String(50), unique=True, nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    middle_name = db.Column(db.String(100), nullable=True)
+    last_name = db.Column(db.String(100), nullable=False)
+    id_card_type = db.Column(db.String(50), nullable=False)
+    id_card_number = db.Column(db.String(100), nullable=False)
     contact_number = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
     residence = db.Column(db.String(100), nullable=False)
-    role = db.Column(db.String(50), nullable=False)
+    role = db.Column(db.String(100), nullable=False)
     shift_type = db.Column(db.String(50), nullable=False)
     salary = db.Column(db.Float, nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    hotel_id = db.Column(db.Integer, nullable=False)  # Hotel ID for multi-tenancy
+    next_of_kin_first_name = db.Column(db.String(100), nullable=False)
+    next_of_kin_last_name = db.Column(db.String(100), nullable=False)
+    next_of_kin_relation = db.Column(db.String(50), nullable=False)
+    next_of_kin_contact_number = db.Column(db.String(20), nullable=False)
+    next_of_kin_email = db.Column(db.String(100), nullable=False)
+    next_of_kin_residence = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f'<Staff {self.first_name} {self.last_name}>'

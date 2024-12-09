@@ -1,4 +1,4 @@
-import bcrypt
+"""import bcrypt
 from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from flask_limiter import Limiter
@@ -94,7 +94,7 @@ def change_password():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)"""
 
 
 

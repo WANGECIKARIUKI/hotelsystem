@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+"""from flask import Blueprint, request, jsonify
 from models import db, Room
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -52,4 +52,4 @@ def update_room(id):
         room.comments = data.get('comments', room.comments)
         db.session.commit()
         return jsonify({'message': 'Room updated successfully'}), 200
-    return jsonify({'message': 'Room not found'}), 404
+    return jsonify({'message': 'Room not found'}), 404 """

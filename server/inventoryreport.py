@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_file
+"""from flask import Flask, jsonify, request, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import pandas as pd # type: ignore
@@ -63,4 +63,4 @@ def export_inventory_report(hotel_id, format):
     return send_file(filename, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)     
+    app.run(debug=True)  """
