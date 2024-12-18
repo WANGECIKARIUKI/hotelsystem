@@ -35,7 +35,7 @@ const AddCategory = () => {
                 delivery: isDelivery,
                 delivery_fee: isDelivery ? deliveryFee : 0,
             });
-            navigate('/categories');
+            navigate('/categories'); // Navigate back to categories
         } catch (error) {
             console.error('Error saving category:', error);
         }
@@ -77,6 +77,7 @@ const AddCategory = () => {
                 <label>
                     <input
                         type="checkbox"
+                        
                         checked={isDelivery}
                         onChange={(e) => setIsDelivery(e.target.checked)}
                     />
@@ -97,7 +98,7 @@ const AddCategory = () => {
 
                 <div>
                     <button type="submit">Save</button>
-                    <button type="button" onClick={() => navigate('/category')}>Cancel</button>
+                    <button type="button" onClick={() => navigate('/categories')}>Cancel</button>
                 </div>
             </form>
         </div>

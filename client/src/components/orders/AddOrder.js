@@ -373,7 +373,7 @@ const AddOrder = () => {
 
                 {/* Action Buttons */}
                 <div>
-                    <button type="button" onClick={() => window.location.href = '/orders'}>Cancel</button>
+                    <button type="button">Cancel</button>
                     <button type="submit">Add Order</button>
                 </div>
             </form>

@@ -45,8 +45,19 @@ input[type="number"]::-moz-spin-button {
 }
 
 input[type="checkbox"] {
-    margin-right: 10px;
+    margin-left: 0; /* Adjust margin as needed */
+    width: 16px; /* Set the width for the checkbox */
+    height: 16px; /* Set the height for the checkbox */
+    position: relative; /* Ensure it's positioned properly */
+    top: 2px; /* Adjust the checkbox's vertical position */
 }
+
+/* Optional: To reduce the label space and make it align to the left */
+input[type="checkbox"] + label {
+    margin-left: 0;
+    padding-left: 5px; /* Adjust padding as needed */
+}
+
 
 button {
     padding: 10px 20px;

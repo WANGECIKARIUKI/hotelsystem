@@ -54,7 +54,7 @@ function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container" style = {{backgroundColor: ''}}>
       <form onSubmit={handleLogin}>
         <h2>Welcome! Please Login to Proceed</h2>
         <input

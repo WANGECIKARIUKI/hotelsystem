@@ -4,28 +4,31 @@ import io
 import bcrypt
 from flask import Flask, redirect, request, jsonify, Blueprint, send_file
 from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO # type: ignore
 from flask_mail import Mail, Message
 from flask_cors import CORS
+from flask_migrate import Migrate
 import os
-from werkzeug.security import check_password_hash, secure_filename
+from werkzeug.security import check_password_hash
+from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 import uuid
 import pandas as pd # type: ignore
 from fpdf import FPDF # type: ignore
-import random
-import string
-import requests
+#import random
+#import string
+#import requests
 from sqlalchemy import func
-from models import Category, CommunicationChannel, Inventory, Order, Report, Revenue, Service, db, HotelRevenue, BookingSource, OccupancyRate, Hotel, Room, Reservation, Staff, Notification, Hotel, Guest, Reservation, Room, Payment, Invoice, Hotel, Invoice, Expense, POSItem, POSTransaction, Employee, NextOfKin, Staff, Complaint
+from models import Category, CommunicationChannel, Inventory, Order, Report, Revenue, Service, db, Room, Reservation, Staff, Hotel, Guest, Payment, NextOfKin, Complaint
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from requests_oauthlib import OAuth2Session # type: ignore
 from flask import session
-import stripe # type: ignore
+#import stripe # type: ignore
 
 app = Flask(__name__)
-app.config ['SQLALCHEMY_DATABASE_URI'] = 'mysql://user:password@localhost/hotel_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://Kariuki:admin123@localhost/hotelmanagement'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = 'smtp.example.com'
 app.config['MAIL_PORT'] = 587
@@ -39,11 +42,12 @@ app.config['SESSION_COOKIE_SECURE'] = False  # Set True in production with HTTPS
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 mail = Mail(app)
 
-limiter = Limiter(app, key_func=lambda: request.remote_addr)
-db.init_app(app)
+limiter = Limiter(get_remote_address, app=app,)
+db = SQLAlchemy(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
 jwt = JWTManager(app)
+migrate = Migrate(app, db)
 
 
 # Define your Xero app credentials
@@ -73,6 +77,9 @@ data = {
     "pending_payments": 50000,
     "total_revenue": 200000,
 }
+@app.route('/')
+def home():
+    return 'Hello, User!'
 
 @app.route('/dashboard', methods=['GET'])
 def get_dashboard_data():
@@ -587,8 +594,8 @@ def get_guest(guest_id):
     })
 
 #guest report
-@app.route('/generate_report', methods=['POST'])
-def generate_report():
+@app.route('/generate_guest_report', methods=['POST'])
+def generate_guest_report():
     try:
         data = request.get_json()
         hotel_id = data.get("hotel_id")
@@ -695,7 +702,7 @@ def update_room(id):
 #inventory
 
 # Create models table if not exists
-cursor = db.cursor()
+"""cursor = db.cursor()
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS inventory (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -751,7 +758,57 @@ def update_item(item_id):
         (item_name, quantity, description, item_id)
     )
     db.commit()
-    return jsonify({'message': 'Item updated successfully!'})
+    return jsonify({'message': 'Item updated successfully!'})"""
+
+# Get inventory for a specific hotel
+@app.route('/inventory/<int:hotel_id>', methods=['GET'])
+def get_inventory(hotel_id):
+    inventory = Inventory.query.filter_by(hotel_id=hotel_id).all()
+    return jsonify([{
+        'id': item.id,
+        'hotel_id': item.hotel_id,
+        'item_name': item.item_name,
+        'quantity': item.quantity,
+        'description': item.description
+    } for item in inventory])
+
+# Add a new inventory item
+@app.route('/inventory', methods=['POST'])
+def add_item():
+    data = request.json
+    hotel_id = data.get('hotel_id')
+    item_name = data.get('item_name')
+    quantity = data.get('quantity')
+    description = data.get('description', '')
+
+    new_item = Inventory(hotel_id=hotel_id, item_name=item_name, quantity=quantity, description=description)
+    db.session.add(new_item)
+    db.session.commit()
+
+    return jsonify({'message': 'Item added successfully!'}), 201
+
+# Delete an inventory item
+@app.route('/inventory/<int:item_id>', methods=['DELETE'])
+def delete_item(item_id):
+    item = Inventory.query.get_or_404(item_id)
+    db.session.delete(item)
+    db.session.commit()
+
+    return jsonify({'message': 'Item deleted successfully!'})
+
+# Update an inventory item
+@app.route('/inventory/<int:item_id>', methods=['PUT'])
+def update_item(item_id):
+    data = request.json
+    item = Inventory.query.get_or_404(item_id)
+
+    item.item_name = data.get('item_name', item.item_name)
+    item.quantity = data.get('quantity', item.quantity)
+    item.description = data.get('description', item.description)
+
+    db.session.commit()
+
+    return jsonify({'message': 'Item updated successfully!'})    
 
 #inventory report
 @app.route('/api/inventory/<int:hotel_id>/report', methods=['GET'])
@@ -869,7 +926,7 @@ def change_password():
 
 #order report
 @app.route('/api/orders/report', methods=['GET'])
-def generate_report():
+def generate_order_report():
     hotel_id = request.args.get('hotel_id')
     report_type = request.args.get('report_type', 'daily')
     start_date = request.args.get('start_date', None)
@@ -986,7 +1043,7 @@ def export_to_pdf(report):
 
 #service report
 @app.route('/report/services', methods=['GET'])
-def generate_report():
+def generate_service_report():
     hotel_id = request.args.get('hotel_id')
     report_type = request.args.get('report_type')  # daily, weekly, monthly, yearly
     start_date, end_date = get_date_range(report_type)
@@ -1184,11 +1241,6 @@ def manage_orders():
         } for order in orders])
 
 #staff
-# Create the database (run once to initialize the database)
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
 # Create new staff
 @app.route('/api/create_staff', methods=['POST'])
 def create_staff():
@@ -1224,90 +1276,11 @@ def create_staff():
         db.session.rollback()
         return jsonify({'error': str(e)}), 400
     
-    #manage staff
-
-# Initialize the database
-with app.app_context():
-    db.create_all()
-
-# Route to fetch all staff for a specific hotel
-@app.route('/api/staff', methods=['GET'])
-def get_staff():
-    hotel_id = request.args.get('hotel_id')
-    staff = Staff.query.filter_by(hotel_id=hotel_id).all()
-    staff_list = [{
-        'id': s.id,
-        'name': s.name,
-        'phone_number': s.phone_number,
-        'address': s.address,
-        'role': s.role,
-        'shift': s.shift,
-        'joining_date': s.joining_date.strftime('%Y-%m-%d'),
-        'next_of_kin_name': s.next_of_kin_name,
-        'next_of_kin_phone': s.next_of_kin_phone,
-        'salary': str(s.salary)
-    } for s in staff]
-    return jsonify(staff_list)
-
-# Route to add a new staff member
-@app.route('/api/staff', methods=['POST'])
-def add_staff():
-    data = request.get_json()
-    new_staff = Staff(
-        hotel_id=data['hotel_id'],
-        name=data['name'],
-        phone_number=data['phone_number'],
-        address=data.get('address'),
-        role=data['role'],
-        shift=data['shift'],
-        joining_date=datetime.strptime(data['joining_date'], '%Y-%m-%d'),
-        next_of_kin_name=data['next_of_kin_name'],
-        next_of_kin_phone=data['next_of_kin_phone'],
-        salary=data['salary']
-    )
-    db.session.add(new_staff)
-    db.session.commit()
-    return jsonify({'message': 'Staff added successfully'}), 201
-
-# Route to delete a staff member by ID
-@app.route('/api/staff/<int:id>', methods=['DELETE'])
-def delete_staff(id):
-    staff = Staff.query.get_or_404(id)
-    db.session.delete(staff)
-    db.session.commit()
-    return jsonify({'message': 'Staff deleted successfully'}), 200
-
-# Route to update a staff member's details by ID
-@app.route('/api/update_staff/<int:id>', methods=['PUT'])
-def update_staff(id):
-    staff = Staff.query.get_or_404(id)
-    data = request.get_json()
-
-    staff.name = data.get('name', staff.name)
-    staff.phone_number = data.get('phone_number', staff.phone_number)
-    staff.address = data.get('address', staff.address)
-    staff.role = data.get('role', staff.role)
-    staff.shift = data.get('shift', staff.shift)
-    staff.joining_date = datetime.strptime(data['joining_date'], '%Y-%m-%d') if 'joining_date' in data else staff.joining_date
-    staff.next_of_kin_name = data.get('next_of_kin_name', staff.next_of_kin_name)
-    staff.next_of_kin_phone = data.get('next_of_kin_phone', staff.next_of_kin_phone)
-    staff.salary = data.get('salary', staff.salary)
-
-    db.session.commit()
-    return jsonify({'message': 'Staff updated successfully'}), 200
-
-# Route to change a staff member's shift
-@app.route('/api/staff/<int:id>/shift', methods=['PATCH'])
-def change_shift(id):
-    staff = Staff.query.get_or_404(id)
-    data = request.get_json()
-    staff.shift = data['shift']
-    db.session.commit()
-    return jsonify({'message': 'Shift updated successfully'}), 200   
+    #manage staff 
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Create tables
-    app.run(debug=True)
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
+        db.create_all()  # Create tables in the database
+        print("Tables created successfully!")
+
+    socketio.run(app, debug=True, port=5000)
